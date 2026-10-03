@@ -22,8 +22,9 @@
 |---|---|---|
 | 主轴一 · 情境锚定律 | `#scene` | 教学顺序倒过来：**常识 → 交互 → 公式**，而不是"先公式后套题" |
 | 主轴二 · 全域图式律 | `#domain` | 不做"搜一题讲一题"，**一个领域一次收齐**，建的是知识图式不是题海 |
+| 底盘 · 教材内容层 | `#textbook` | 覆盖门查到**每一节**：人教 2019 全 16 册逐节要点 + 高考接口，第二道机器门 |
 
-页面结构（自上而下）：`hero`（含实时物理演示台）→ `#pain` 谁在痛 → `#scene` 主轴一 → `#domain` 主轴二 → `#vs` 竞品对照 → `#evidence` P0 8 周验证 → `#form` 学科类培训合规硬约束 → `#faq` → `#cta` 内测招募 → `footer`。
+页面结构（自上而下）：`hero`（含实时物理演示台）→ `#pain` 谁在痛 → `#scene` 主轴一 → `#domain` 主轴二 → `#textbook` 教材内容层 → `#vs` 竞品对照 → `#evidence` P0 8 周验证 → `#form` 学科类培训合规硬约束 → `#faq` → `#cta` 内测招募 → `footer`。
 
 ## 复用/对接的现有资产
 
@@ -31,7 +32,7 @@
 |---|---|
 | `analysis/ai-education-landscape/` | 页面全部主张与竞品口径的来源（战略图 v2.1、L1 竞品矩阵、P0 计划、合规定位） |
 | `analysis/gaokao-physics-khanmigo-replica/` | 交互教学页骨架被复刻进本站 hero 演示台；`demo-khanmigo-replica.html` 是同源完整复刻页 |
-| `analysis/gaokao-sci-knowledge-tree/` | 「一个领域一次收齐」的 12 集中域口径来自这套 65 章大纲 + 覆盖门 |
+| `analysis/gaokao-sci-knowledge-tree/` | 「一个领域一次收齐」的两层口径：`#domain` 的 12 集中域来自 65 章大纲；`#textbook` 整节来自该目录 2026-10-03 新增的 `教材内容/`（人教 2019 全 16 册、300 条逐节条目、第二道机器门） |
 
 ## 文件清单
 

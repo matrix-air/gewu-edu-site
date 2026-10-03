@@ -61,7 +61,7 @@ header.hero::after{content:"";position:absolute;right:-160px;top:-140px;width:52
 .hero .lede{font-size:16.5px;color:#c3c3c3;max-width:560px}
 .hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin:30px 0 22px}
 .hero .note{font-size:12.5px;color:var(--dim);box-shadow:inset 2px 0 0 var(--line);padding-left:12px}
-.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px;max-width:620px}
+.hero-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:34px;max-width:620px}
 .hstat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 15px}
 .hstat b{display:block;font-size:23px;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
 .hstat span{font-size:12px;color:var(--dim);line-height:1.5;display:block;margin-top:3px}
@@ -199,6 +199,7 @@ footer .src b{color:#cfd8e3}
     <span class="links">
       <a href="#scene">场景化</a>
       <a href="#domain">集中化</a>
+      <a href="#textbook">教材层</a>
       <a href="#vs">对标</a>
       <a href="#evidence">判据</a>
       <a href="#faq">问答</a>
@@ -227,9 +228,8 @@ footer .src b{color:#cfd8e3}
         当前进度：<b>高中物理·力学域</b>内测准备中（产品原型，非已发布商品）。工作名「格物」，待定。
       </p>
       <div class="hero-stats">
-        <div class="hstat"><b>65<small style="font-size:14px">章</small></b><span>数物化知识大纲，<i>机器覆盖门 100% 归位</i></span></div>
+        <div class="hstat"><b>65<small style="font-size:14px">章</small> / 258<small style="font-size:14px">节</small></b><span>数物化知识双层资产：大纲到章、内容层到节<i>两道机器门全绿</i></span></div>
         <div class="hstat"><b>83%</b><span>章节可场景化（S3 强场景占 52%）<span class="tag est">估</span></span></div>
-        <div class="hstat"><b>3<small style="font-size:14px">道</small></b><span>高考真题交互页已跑通、数值与官方解析一致</span></div>
       </div>
     </div>
 
@@ -350,7 +350,7 @@ footer .src b{color:#cfd8e3}
     </div>
 
     <div class="grid g4" style="margin-bottom:22px">
-      <div class="card"><h3>① 收</h3><p>按学习连贯性而不是教材册次，把 65 章收成 <b>12 个域</b>。</p></div>
+      <div class="card"><h3>① 收</h3><p>按学习连贯性而不是教材册次，把 65 章收成 <b>12 个域</b>，域内挂 258 个正文节。</p></div>
       <div class="card"><h3>② 门</h3><p>覆盖门脚本跑真题逐题标注，<b>漏条目即退出码非 0</b>，自动回炉。</p></div>
       <div class="card"><h3>③ 诊</h3><p>每个知识点 2 道诊断小测，过了才点亮，没过就补。</p></div>
       <div class="card"><h3>④ 串</h3><p>模型之间标 prerequisite，散点挂成结构。</p></div>
@@ -377,6 +377,53 @@ footer .src b{color:#cfd8e3}
     <p class="quote warm">
       <b>科学底座 · 全域图式律</b>：先行组织者（Ausubel）先给全域总图再进知识点；掌握学习（Bloom 2σ，取"达标才进阶"的机制、不取数值，Slavin 等人的高估批评已注）；认知负荷理论（Sweller）用图式组块降负荷。
       <b>边界注记</b>：交错练习优于集中刷题（Rohrer 2020 RCT）——本产品的「集中」指知识覆盖与图式结构，练习排程仍走间隔 + 交错。<b>图式集中，练习交错。</b>
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 教材内容层 ══════════ -->
+<section class="sec" id="textbook">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="secno">底盘 · 教材内容层</span>
+      <h2>覆盖门不再只查到「章」——<em>已经查到每一节</em></h2>
+      <p>「一个领域一次收齐」不能靠嘴说。人教 2019 全 16 册逐节拆成可核条目，每条都标出它在高考卷上的接口——这才是「一格都不落」的可验证含义。</p>
+    </div>
+
+    <div class="grid g3" style="margin-bottom:22px">
+      <div class="card hl">
+        <span class="who">01 · 双层门</span>
+        <h3>纲要不漏章，内容不漏节</h3>
+        <p>第一道门比对<b>大纲</b>（65 章 + 254 条节级条目），第二道门比对<b>教材内容层</b>（册数 + 真实正文节数 + 来源，四重校验）。任一条缺失即退出码非 0，自动回炉。</p>
+      </div>
+      <div class="card hl">
+        <span class="who">02 · 逐节骨架</span>
+        <h3>每节都用同一把尺子</h3>
+        <p>定义对象 → 公式结论 → 方法技能 → 实验要点 → 教材栏目线索 → <b>高考接口</b>。各科按学科习惯命名其中几栏，但骨架位置一致，机器才数得清。</p>
+      </div>
+      <div class="card hl">
+        <span class="who">03 · 可追溯</span>
+        <h3>每节直接挂到考纲考点</h3>
+        <p>每节末栏写清它对应大纲哪一章、哪一考点、什么权重。想查某个考点「教材里在哪讲、讲到多深」，顺接口就能翻回去——这是给内容生产线用的地图。</p>
+      </div>
+    </div>
+
+    <div class="tscroll">
+    <table class="map">
+      <thead>
+        <tr><th>科目</th><th>册数</th><th>正文节</th><th>逐节栏位（按学科命名）</th><th>门状态</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>数学</td><td>5 册</td><td>73 节</td><td>定义与对象 / 公式与结论 / 方法与技能 / 教材栏目线索 / 高考接口</td><td><span class="tag now">PASS</span></td></tr>
+        <tr><td>物理</td><td>6 册</td><td>125 节</td><td>定义与对象 / 公式与规律 / 模型与方法 / 实验要点 / 教材栏目线索 / 高考接口</td><td><span class="tag now">PASS</span></td></tr>
+        <tr><td>化学</td><td>5 册</td><td>60 节</td><td>核心概念 / 关键方程式 / 性质与转化 / 实验要点 / 教材栏目线索 / 高考接口</td><td><span class="tag now">PASS</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p class="quote" style="margin-top:22px">
+      <b>口径与边界</b>：内容层是<b>教材要点整理</b>（教材目录 + 节级知识要点），不是教材原文复制。粒度到「每节的定义 / 公式 / 方法」，尚未到「逐公式证明 / 逐例题」。16 册另收录章末「整理与提升」19 条、化学「实验活动」18 条、册末专题 3 条，合计 <b>300 条</b>可检索条目，每册都带可核来源链接。
+      <span class="tag">诚实注记：六栏里「实验要点」在数学无此项、物理覆盖 81/125 节——按该节是否含实验而定，不硬凑</span>
     </p>
   </div>
 </section>
@@ -497,7 +544,9 @@ footer .src b{color:#cfd8e3}
     <details class="faq"><summary>会不会又是"看动画"？</summary>
       <div class="ans">不会。<b>动画是播给你看的，格物的画面是等你来拖的。</b>页面上每一个演示——绳子的角度、传送带的带速、磁场的宽度——都是可调参数，拖一下物理量立刻重算。你现在就可以在上面那块演示台上试。</div></details>
     <details class="faq"><summary>知识点的完备性怎么保证？不是你说齐就齐。</summary>
-      <div class="ans">用机器门兜底。三科 65 章的"章 + 节"清单内嵌在校验脚本里，逐条与大纲做归一化匹配，<b>任何缺失条目直接退出码非 0</b>，也就是漏了就自动回炉。当前状态：三科全绿。</div></details>
+      <div class="ans">用两道机器门兜底。第一道比对<b>大纲</b>：三科 65 章的"章 + 节"清单内嵌在校验脚本里，逐条归一化匹配，任何缺失条目直接退出码非 0。第二道比对<b>教材内容层</b>：人教 2019 全 16 册的册数、真实正文节数（数学 73 / 物理 125 / 化学 60）、以及每册必备的来源区，同样一缺即退出码非 0。漏了就自动回炉，当前状态：两道门全绿。</div></details>
+    <details class="faq"><summary>那个"教材内容层"是什么？和教材原文什么关系？</summary>
+      <div class="ans">是<b>教材要点整理</b>，不是原文复制。按人教 2019 教材目录逐节拆条目，每节固定六栏骨架（定义对象 / 公式结论 / 方法技能 / 实验要点 / 教材栏目线索 / <b>高考接口</b>，各科按学科习惯命名其中几栏），每册带可核来源链接。粒度到"每节的定义与公式"，还没到"逐公式证明、逐例题"。它的用途是当内容生产线的底盘——哪个考点该配场景课、哪节是空白，看这张表就知道。</div></details>
     <details class="faq"><summary>物理数值会不会写错？错了就是信誉事故。</summary>
       <div class="ans">每页必须过"解析数值一致"校验才允许上线。已上线的 3 道真题页与官方解析数值一致；其中 2023 压轴第 2 问的临界磁场宽度，我们按动量定理重推为 <b>W* = 2.00 L</b>，并用该链路验算产热恰等于官方答案。<b>错误的页面不上线。</b></div></details>
     <details class="faq"><summary>现在能买到吗？多少钱？</summary>
@@ -529,7 +578,7 @@ footer .src b{color:#cfd8e3}
       </div>
       <div>
         <h5>产品</h5>
-        <p><a href="#scene">场景化教学</a><br><a href="#domain">集中化学习</a><br><a href="demo-khanmigo-replica.html">真题交互演示</a></p>
+        <p><a href="#scene">场景化教学</a><br><a href="#domain">集中化学习</a><br><a href="#textbook">教材内容层</a><br><a href="demo-khanmigo-replica.html">真题交互演示</a></p>
       </div>
       <div>
         <h5>关于</h5>
@@ -537,7 +586,8 @@ footer .src b{color:#cfd8e3}
       </div>
     </div>
     <div class="src">
-      <b>口径来源（可核）：</b>知识大纲与覆盖校验 = 高考物化数知识大钢结构 2026 新高考口径（65 章，覆盖门全绿）；
+      <b>口径来源（可核）：</b>知识大纲与覆盖校验 = 高考物化数知识大钢结构 2026 新高考口径（65 章 / 254 条节级条目，门全绿）；
+      教材内容层 = 人教 2019 全 16 册逐节要点（258 正文节 + 42 条栏目条目，第二道门全绿，含逐册来源链接）；
       章节分层 = 场景化 × 集中化分层（T 教学层级 × S 场景度双标签）；
       竞品官网实拍 = 2026-10-03 无头沙屏抓取，站点见图卡链接；
       Khanmigo 效果口径 = Khan Academy 官方博客（2026-08-27）；定价与市场规模 = 行业调研口径，标注【估】的为预估值。
