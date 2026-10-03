@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>格物 · 把解题思路放进生活场景｜数物化场景化 × 集中化学习</title>
+<meta name="description" content="格物把每道大题背后的模型翻译成学生天天见的生活原型：先常识、再交互、后公式；一个领域全部知识点一次收齐。高中物理·力学域内测中。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23141414'/%3E%3Crect x='6' y='6' width='20' height='20' rx='4' fill='none' stroke='%230066ff' stroke-width='2'/%3E%3Crect x='12' y='12' width='8' height='8' rx='2' fill='none' stroke='%2300ffff' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+:root{
+  /* Tech Innovation 主题（theme-factory） */
+  --blue:#0066ff; --cyan:#00ffff;
+  --bg:#141414; --panel:#1e1e1e; --panel2:#232323;
+  --line:#333; --txt:#e8e8e8; --dim:#9a9a9a;
+  --warm:#ffb020; --green:#39d98a; --purple:#9a7fff; --red:#ff6b6b;
+  --paper:#f7f8fa; --card:#ffffff; --ink:#1f2733; --inkdim:#5b6b7c; --papline:#dbe2ec;
+  --mono:"DejaVu Sans Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"DejaVu Sans",-apple-system,"PingFang SC","Helvetica Neue",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.secno{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--cyan)}
+.sec{padding:88px 0;border-top:1px solid var(--line)}
+.sec-head{margin-bottom:38px;max-width:820px}
+.sec-head h2{font-size:34px;line-height:1.35;margin:12px 0 10px;letter-spacing:-.01em}
+.sec-head h2 em{font-style:normal;color:var(--cyan)}
+.sec-head p{color:var(--dim);font-size:15.5px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 9px;border-radius:6px;
+  border:1px solid var(--line);color:var(--dim);vertical-align:2px}
+.tag.now{border-color:var(--green);color:var(--green)}
+.tag.est{border-color:var(--warm);color:var(--warm)}
+
+/* ── nav ── */
+nav{position:sticky;top:0;z-index:50;background:rgba(18,18,18,.97);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:26px;height:62px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;letter-spacing:.02em}
+.logo .mark{width:24px;height:24px;border:1.5px solid var(--blue);border-radius:6px;position:relative;flex:0 0 auto}
+.logo .mark::before{content:"";position:absolute;inset:5px;border:1.5px solid var(--cyan);border-radius:2px}
+.logo small{font-family:var(--mono);font-size:10px;color:var(--dim);font-weight:400;letter-spacing:.1em}
+nav .links{display:flex;gap:22px;margin-left:14px;font-size:14px;color:var(--dim)}
+nav .links a:hover{color:var(--txt)}
+nav .spacer{flex:1}
+.btn{display:inline-flex;align-items:center;gap:7px;border-radius:8px;padding:10px 18px;font-size:14px;
+  border:1px solid var(--line);background:transparent;color:var(--txt);cursor:pointer;font-family:var(--sans);transition:.18s}
+.btn:hover{border-color:var(--blue);color:#fff}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+.btn.primary:hover{background:#1a7aff}
+.btn.ghost{color:var(--cyan);border-color:#2a4a55}
+.btn.sm{padding:7px 13px;font-size:13px}
+
+/* ── hero ── */
+header.hero{padding:76px 0 66px;position:relative;overflow:hidden}
+header.hero::after{content:"";position:absolute;right:-160px;top:-140px;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,102,255,.20),transparent 68%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,500px);gap:52px;align-items:start;position:relative}
+.hero h1{font-size:47px;line-height:1.22;letter-spacing:-.02em;margin:16px 0 18px}
+.hero h1 .hl{color:var(--cyan)}
+.hero .lede{font-size:16.5px;color:#c3c3c3;max-width:560px}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin:30px 0 22px}
+.hero .note{font-size:12.5px;color:var(--dim);box-shadow:inset 2px 0 0 var(--line);padding-left:12px}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px;max-width:620px}
+.hstat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 15px}
+.hstat b{display:block;font-size:23px;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.hstat span{font-size:12px;color:var(--dim);line-height:1.5;display:block;margin-top:3px}
+.hstat i{font-style:normal;font-size:11px;font-family:var(--mono);color:var(--cyan)}
+
+/* ── 演示台 ── */
+.bench{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.bench .bar{display:flex;align-items:center;gap:10px;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--panel2)}
+.bench .dot{width:9px;height:9px;border-radius:50%;background:#4a4a4a}
+.bench .bar b{font-size:13px;font-weight:600}
+.bench .bar .tag{margin-left:auto}
+canvas{display:block;width:100%;background:#0f1116;touch-action:none}
+.bench .pad{padding:14px 16px 16px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.step{padding:9px 12px;font-size:12.5px;border-right:1px solid var(--line);color:var(--dim)}
+.step:last-child{border-right:0}
+.step b{display:block;font-family:var(--mono);font-size:10px;color:var(--cyan);letter-spacing:.1em;margin-bottom:2px}
+.step.on{background:#0f2033;color:#fff}
+.ctl{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;font-size:13px;color:var(--dim)}
+.ctl label{display:flex;align-items:center;gap:9px}
+.ctl input[type=range]{width:118px;accent-color:var(--blue)}
+.ctl .val{font-family:var(--mono);color:var(--cyan);min-width:60px;font-variant-numeric:tabular-nums}
+.verdict{margin-top:13px;font-size:13.5px;background:#161a20;border:1px solid var(--line);
+  box-shadow:inset 2px 0 0 var(--blue);
+  border-radius:8px;padding:10px 14px;min-height:44px;color:#cfd8e3}
+.verdict b{color:var(--cyan)}
+.formula{margin-top:11px;font-family:var(--mono);font-size:12.5px;color:var(--dim);background:#111;border:1px dashed var(--line);
+  border-radius:8px;padding:9px 13px;line-height:1.9}
+.formula b{color:var(--warm);font-weight:600}
+
+/* ── 通用卡片网格 ── */
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 21px}
+.card h3{font-size:16.5px;margin-bottom:8px}
+.card p{font-size:13.5px;color:#b9b9b9}
+.card .who{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:.1em;display:block;margin-bottom:9px}
+.card.hl{border-color:#2a4a55;background:#17222b}
+ul.plain{list-style:none;font-size:13.5px;color:#b9b9b9}
+ul.plain li{padding-left:16px;position:relative;margin:7px 0}
+ul.plain li::before{content:"—";position:absolute;left:0;color:var(--line)}
+ul.plain li b{color:var(--txt)}
+.quote{position:relative;font-size:14.5px;padding:0 0 0 22px;color:#cfd8e3;margin:22px 0 0}
+.quote::before{content:"「";position:absolute;left:0;top:-1px;font-size:15px;color:var(--cyan)}
+.quote.warm::before{color:var(--warm)}
+
+/* ── 映射表 ── */
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+table.map{width:100%;min-width:640px;border-collapse:collapse;font-size:13.5px;background:var(--panel);border:0}
+table.map.wide{min-width:860px}
+table.map th{text-align:left;padding:11px 15px;background:var(--panel2);font-size:12px;font-family:var(--mono);
+  letter-spacing:.06em;color:var(--dim);font-weight:600;border-bottom:1px solid var(--line)}
+table.map td{padding:11px 15px;border-bottom:1px solid #2a2a2a;color:#c9c9c9;vertical-align:top}
+table.map tr:last-child td{border-bottom:0}
+table.map td b{color:var(--cyan);font-weight:600}
+table.map td.q{color:var(--warm)}
+table.map td:first-child{color:#fff;font-weight:600;white-space:nowrap}
+
+/* ── 竞品实拍墙 ── */
+.shots{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.shot{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.shot img{display:block;width:100%;height:186px;object-fit:cover;object-position:top center;border-bottom:1px solid var(--line);filter:saturate(.92)}
+.shot .meta{padding:13px 16px 15px}
+.shot .meta h4{font-size:14.5px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.shot .meta h4 .tag{font-weight:400}
+.shot .meta p{font-size:12.5px;color:var(--dim);margin-bottom:5px}
+.shot .meta p b{color:var(--green);font-weight:600}
+.shot .meta p.no b{color:var(--red)}
+.shot .meta a{font-size:12px;font-family:var(--mono);color:var(--blue)}
+
+/* ── 域网格 ── */
+.dgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+.dom{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 14px}
+.dom.mvp{border-color:var(--warm);background:#241f14}
+.dom .n{font-family:var(--mono);font-size:10px;color:var(--dim)}
+.dom h4{font-size:14px;margin:5px 0 8px;line-height:1.4}
+.dom .bar{height:4px;border-radius:3px;background:#2c2c2c;overflow:hidden;margin-bottom:7px}
+.dom .bar i{display:block;height:100%;background:var(--cyan)}
+.dom .m{font-size:11.5px;color:var(--dim);font-family:var(--mono);display:flex;justify-content:space-between;gap:6px}
+.dom .m b{color:var(--warm);font-weight:600}
+.dom.mvp .m b{color:var(--warm)}
+
+/* ── 证据/里程碑 ── */
+.mile{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.wk{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:15px 16px}
+.wk .w{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:.1em}
+.wk h4{font-size:14px;margin:7px 0}
+.wk p{font-size:12.5px;color:var(--dim)}
+.wk .k{font-size:12px;color:var(--green);margin-top:9px;border-top:1px dashed var(--line);padding-top:8px}
+.gate{margin-top:18px;background:#0f2033;border:1px solid var(--blue);border-radius:12px;padding:18px 22px;font-size:14px}
+.gate b{color:var(--cyan)}
+.gate .est{color:var(--warm)}
+
+/* ── FAQ ── */
+details.faq{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0;margin-bottom:10px;overflow:hidden}
+details.faq summary{cursor:pointer;padding:15px 19px;font-size:15px;font-weight:600;list-style:none;display:flex;align-items:center;gap:11px}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::before{content:"+";font-family:var(--mono);color:var(--cyan);font-size:16px;flex:0 0 auto}
+details.faq[open] summary::before{content:"−"}
+details.faq .ans{padding:0 19px 17px 45px;font-size:13.5px;color:#b9b9b9}
+details.faq .ans b{color:var(--txt)}
+
+/* ── 收尾 ── */
+footer{border-top:1px solid var(--line);padding:44px 0 60px;font-size:12.5px;color:var(--dim)}
+footer .cols{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:32px;margin-bottom:32px}
+footer h5{font-size:12px;font-family:var(--mono);letter-spacing:.1em;color:var(--txt);margin-bottom:11px}
+footer a{color:var(--dim)}
+footer a:hover{color:var(--cyan)}
+footer .src{border-top:1px solid var(--line);padding-top:20px;line-height:2;font-size:12px}
+footer .src b{color:#cfd8e3}
+
+@media (max-width:1000px){
+  .hero-grid{grid-template-columns:1fr;gap:34px}
+  .hero h1{font-size:36px}
+  .g3,.g4{grid-template-columns:1fr 1fr}
+  .dgrid{grid-template-columns:1fr 1fr}
+  .mile{grid-template-columns:1fr 1fr}
+  .shots{grid-template-columns:1fr}
+  nav .links{display:none}
+}
+@media (max-width:620px){
+  .g3,.g4,.dgrid,.mile,.hero-stats{grid-template-columns:1fr}
+  .sec{padding:60px 0}
+  .hero h1{font-size:30px}
+  .sec-head h2{font-size:26px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="logo"><span class="mark"></span>格物 <small>GEWU</small></span>
+    <span class="links">
+      <a href="#scene">场景化</a>
+      <a href="#domain">集中化</a>
+      <a href="#vs">对标</a>
+      <a href="#evidence">判据</a>
+      <a href="#faq">问答</a>
+    </span>
+    <span class="spacer"></span>
+    <a class="btn ghost sm" href="demo-khanmigo-replica.html">看真题演示</a>
+    <a class="btn primary sm" href="#cta">申请内测</a>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="secno">数物化 · 场景化 × 集中化</span>
+      <h1>把解题思路<br>放进你<span class="hl">天天见的生活</span>里</h1>
+      <p class="lede">
+        每道大题背后都藏着一个模型。格物把它翻译成行李传送带、强磁掉进铜管、冰箱为什么会保鲜——
+        <b>先让你用常识猜，再拖着参数看，最后才落到公式</b>。再把一个领域的知识点一次收齐，一格都不落。
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="demo-khanmigo-replica.html">▶ 试玩 3 道高考真题交互页</a>
+        <a class="btn" href="#scene">看它怎么做到的</a>
+      </div>
+      <p class="note">
+        当前进度：<b>高中物理·力学域</b>内测准备中（产品原型，非已发布商品）。工作名「格物」，待定。
+      </p>
+      <div class="hero-stats">
+        <div class="hstat"><b>65<small style="font-size:14px">章</small></b><span>数物化知识大纲，<i>机器覆盖门 100% 归位</i></span></div>
+        <div class="hstat"><b>83%</b><span>章节可场景化（S3 强场景占 52%）<span class="tag est">估</span></span></div>
+        <div class="hstat"><b>3<small style="font-size:14px">道</small></b><span>高考真题交互页已跑通、数值与官方解析一致</span></div>
+      </div>
+    </div>
+
+    <!-- 真交互演示：板块=行李箱过扶梯 -->
+    <div class="bench">
+      <div class="bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <b>行李箱放上行李传送带</b>
+        <span class="tag now">真交互</span>
+      </div>
+      <canvas id="cv" height="248"></canvas>
+      <div class="pad">
+        <div class="steps">
+          <div class="step on" id="st1"><b>STEP 1 · 常识</b>行李会被带子送走，还是原地不动？</div>
+          <div class="step" id="st2"><b>STEP 2 · 交互</b>拖参数，看它什么时候打滑、什么时候共速</div>
+          <div class="step" id="st3"><b>STEP 3 · 公式</b>加速距离 s = v² / 2μg</div>
+        </div>
+        <div class="ctl">
+          <label>带速 v <input type="range" id="sv" min="1" max="8" step="0.1" value="4"><span class="val" id="vv">4.0 m/s</span></label>
+          <label>摩擦 μ <input type="range" id="sm" min="0.10" max="0.60" step="0.01" value="0.30"><span class="val" id="vm">0.30</span></label>
+          <button class="btn primary sm" id="run">放上行李箱</button>
+        </div>
+        <div class="verdict" id="vd">先猜：行李会跟着带子一起走吗？点「放上行李箱」验证。</div>
+        <div class="formula" id="fm"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ 痛点 ══════════ -->
+<section class="sec" id="pain">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="secno">谁在痛</span>
+      <h2>同一节课，三种人各要一件东西——<em>现有产品只给了一半</em></h2>
+      <p>学生要「听得懂」，家长要「看得见的证据」，老师要「省时的演示」。三件事错位，所以一份内容必须一鱼三吃。</p>
+    </div>
+    <div class="grid g3">
+      <div class="card">
+        <span class="who">画像 A · 学生（使用者）</span>
+        <h3>听得懂 ≠ 会做题</h3>
+        <p>最深的痛点不是不会算，是<b>物理情景脑补不出来</b>——"传送带上的板块到底怎么动？磁场里粒子的轨迹长什么样？"讲题视频讲完这一道，下一道换个场景还是不会。</p>
+      </div>
+      <div class="card">
+        <span class="who">画像 B · 家长（付款者）</span>
+        <h3>付的是焦虑，要的是证据</h3>
+        <p>焦虑 × 证据 = 预算；有焦虑没证据 = 流失。万元学习机卖点趋同，家长越来越难判断"钱花得值不值"。心理价位：学习机 2,000–4,000 元，年课 0.8–4 万。<span class="tag est">估</span></p>
+      </div>
+      <div class="card">
+        <span class="who">画像 C · 老师（影响者）</span>
+        <h3>抽象概念要能当场演示</h3>
+        <p>备课省时、课堂演示有效果、学情可见、合规无风险。老师不是付款主体，但是最好的获客钩子——<b>场景交互页天生就是课堂投影课件</b>。</p>
+      </div>
+    </div>
+    <p class="quote">
+      所以产品的形态是一份内容、三种交付：同一个场景页，是学生「看得懂的思路」、是家长「可展示的进步证据」、是老师「现成的演示课件」。
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 主轴一 · 场景化 ══════════ -->
+<section class="sec" id="scene">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="secno">主轴一 · 情境锚定律</span>
+      <h2>常识 → 交互 → 公式：<em>把教学顺序倒过来</em></h2>
+      <p>传统教学从公式出发，学生背下了却不懂。格物从现象出发：先问一个学生答得上的生活问题，再让他拖着参数自己发现规律，最后公式只是把已经看懂的事记成账。</p>
+    </div>
+
+    <div class="grid g3" style="margin-bottom:26px">
+      <div class="card hl">
+        <span class="who">01 · 锚</span>
+        <h3>先找一个他天天见的原型</h3>
+        <p>板块模型 = 行李箱过扶梯；电磁感应 = 强磁掉进铜管会变慢。场景不是包装，是<strong>认知的落脚点</strong>——先让他有话说。</p>
+      </div>
+      <div class="card hl">
+        <span class="who">02 · 玩</span>
+        <h3>拖参数，自己撞出规律</h3>
+        <p>不是看预制动画，是<b>拖一下、画面立刻变</b>。把 α 拖到接近共线，绳子拉力瞬间发散的震撼，比背一句"sin 在分母"管用得多。</p>
+      </div>
+      <div class="card hl">
+        <span class="who">03 · 落</span>
+        <h3>公式只是记账</h3>
+        <p>规律已经被看见了，公式负责把它写成可迁移的语言。这时学生看到的不再是符号，是刚刚玩过的那个现象。</p>
+      </div>
+    </div>
+
+    <div class="tscroll">
+    <table class="map">
+      <thead>
+        <tr><th>高频模型</th><th>生活原型</th><th>先问学生的常识题</th><th>落点公式</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>板块模型</td><td>行李箱放上行李传送带</td><td class="q">行李会被带子送走，还是原地不动？</td><td>s = v²/2μg</td></tr>
+        <tr><td>传送带模型</td><td>机场安检机 / 快递分拣线</td><td class="q">快递会不会在皮带上打滑？</td><td>a = μg</td></tr>
+        <tr><td>电磁感应</td><td>强磁掉进铜管、磁悬浮刹车</td><td class="q">为什么强磁在铜管里下落会变慢？</td><td>Δv = B²L²Δx/mR</td></tr>
+        <tr><td>平抛运动</td><td>行驶中往上抛球、灌篮</td><td class="q">边开车边往上抛，球会落在哪？</td><td>h = ½gt², x = v₀t</td></tr>
+        <tr><td>化学反应速率</td><td>食物冷藏 vs 常温变质</td><td class="q">冰箱为什么能保鲜？</td><td>v = k·c^n</td></tr>
+        <tr><td>函数与导数</td><td>打车计价表、车速表瞬间读数</td><td class="q">"瞬时速度"到底是什么意思？</td><td>v = s′(t)</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p class="quote" style="margin-top:22px">
+      <b>科学底座 · 情境锚定律</b>：锚式教学（Bransford / CTGV 的 Jasper 系列）把学习锚定在真实问题情境中产生生成性学习；CRA 序列（具体 → 表象 → 抽象）给出理解构建的次序；双编码理论（Paivio / Mayer）说明语言与图像双通道并行呈现优于单通道。
+      <span class="tag">诚实注记：CRA 的实证集中在小学与补差人群，高中段证据较弱——这正是第 7 周的对照对拍要补的</span>
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 主轴二 · 集中化 ══════════ -->
+<section class="sec" id="domain">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="secno">主轴二 · 全域图式律</span>
+      <h2>不做"搜一题讲一题"，<em>一个领域一次收齐</em></h2>
+      <p>以「域」为单位：全部知识点一次收齐 → 机器覆盖门（漏一条自动回炉）→ 诊断漏点 → 场景课逐点亮 → 模型之间串联。先见森林，再见树木。</p>
+    </div>
+
+    <div class="grid g4" style="margin-bottom:22px">
+      <div class="card"><h3>① 收</h3><p>按学习连贯性而不是教材册次，把 65 章收成 <b>12 个域</b>。</p></div>
+      <div class="card"><h3>② 门</h3><p>覆盖门脚本跑真题逐题标注，<b>漏条目即退出码非 0</b>，自动回炉。</p></div>
+      <div class="card"><h3>③ 诊</h3><p>每个知识点 2 道诊断小测，过了才点亮，没过就补。</p></div>
+      <div class="card"><h3>④ 串</h3><p>模型之间标 prerequisite，散点挂成结构。</p></div>
+    </div>
+
+    <div class="dgrid">
+      <div class="dom mvp"><span class="n">域 01 · MVP ★</span><h4>物理·力学域</h4><div class="bar"><i style="width:100%"></i></div><div class="m"><span>9 章 · 卷面 40–45%</span><b>场景 100%</b></div></div>
+      <div class="dom"><span class="n">域 02</span><h4>数学·函数主线</h4><div class="bar"><i style="width:80%"></i></div><div class="m"><span>5 章 · 40–45 分</span><b>80%</b></div></div>
+      <div class="dom"><span class="n">域 03</span><h4>化学·有机域</h4><div class="bar"><i style="width:100%"></i></div><div class="m"><span>6 章 · 25.5%</span><b>100%</b></div></div>
+      <div class="dom"><span class="n">域 04</span><h4>物理·电磁域</h4><div class="bar"><i style="width:90%"></i></div><div class="m"><span>10 章 · 35–40%</span><b>90%</b></div></div>
+      <div class="dom"><span class="n">域 05</span><h4>化学·反应原理域</h4><div class="bar"><i style="width:80%"></i></div><div class="m"><span>5 章 · 23%</span><b>80%</b></div></div>
+      <div class="dom"><span class="n">域 06</span><h4>数学·概率统计域</h4><div class="bar"><i style="width:100%"></i></div><div class="m"><span>5 章 · 18–22 分</span><b>100%</b></div></div>
+      <div class="dom"><span class="n">域 07</span><h4>化学·元素化合物域</h4><div class="bar"><i style="width:100%"></i></div><div class="m"><span>4 章 · ~25%</span><b>100%</b></div></div>
+      <div class="dom"><span class="n">域 08</span><h4>物理·波与近代域</h4><div class="bar"><i style="width:100%"></i></div><div class="m"><span>8 章 · 15–20%</span><b>100%</b></div></div>
+      <div class="dom"><span class="n">域 09</span><h4>数学·几何代数域</h4><div class="bar"><i style="width:50%"></i></div><div class="m"><span>6 章 · ~35 分</span><b>50%</b></div></div>
+      <div class="dom"><span class="n">域 10</span><h4>化学·结构域</h4><div class="bar"><i style="width:2%"></i></div><div class="m"><span>4 章 · ~15%</span><b>0%（不硬做）</b></div></div>
+      <div class="dom"><span class="n">域 11</span><h4>数学·预备工具域</h4><div class="bar"><i style="width:50%"></i></div><div class="m"><span>2 章 · 小题保底</span><b>50%</b></div></div>
+      <div class="dom"><span class="n">域 12</span><h4>化学·语言方法域</h4><div class="bar"><i style="width:100%"></i></div><div class="m"><span>1 章 · 贯穿全卷</span><b>100%</b></div></div>
+    </div>
+
+    <p class="quote" style="margin-top:22px">
+      <b>不是所有章节都该做场景。</b>复数、圆锥曲线主体、导数主体、水溶液平衡、结构域——这些是符号推演层（T4）或反场景区（S0/S1），硬套生活场景反而增加认知负荷。它们的正确做法是<b>集中域训练系统</b>（题组 × 反思路径 × 覆盖门），场景最多当 30 秒导入。
+    </p>
+    <p class="quote warm">
+      <b>科学底座 · 全域图式律</b>：先行组织者（Ausubel）先给全域总图再进知识点；掌握学习（Bloom 2σ，取"达标才进阶"的机制、不取数值，Slavin 等人的高估批评已注）；认知负荷理论（Sweller）用图式组块降负荷。
+      <b>边界注记</b>：交错练习优于集中刷题（Rohrer 2020 RCT）——本产品的「集中」指知识覆盖与图式结构，练习排程仍走间隔 + 交错。<b>图式集中，练习交错。</b>
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 对标 ══════════ -->
+<section class="sec" id="vs">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="secno">全行业交叉地带</span>
+      <h2>可视化普遍是"预制动画"——<em>能看，不能玩</em></h2>
+      <p>下面 4 张是竞品官网的实拍（沙屏抓取）。他们各自解决了什么、哪里没做透，一目了然。</p>
+    </div>
+
+    <div class="shots">
+      <div class="shot">
+        <img src="assets/xueersi.jpg" alt="学而思学习机官网" width="900" height="473" loading="lazy" decoding="async">
+        <div class="meta">
+          <h4>学而思学习机（九章）<span class="tag">硬件 ¥3098+</span></h4>
+          <p><b>做到：</b>体系课 + 3 亿题库，3D 演示做得漂亮。</p>
+          <p class="no"><b>没做透：</b>3D 演示是"看动画"不是"玩参数"——学生动不了手，规律还是老师告诉他。</p>
+          <a href="https://xpad.xueersi.com" target="_blank" rel="noopener">xpad.xueersi.com</a>
+        </div>
+      </div>
+      <div class="shot">
+        <img src="assets/iflytek.jpg" alt="科大讯飞学习机官网" width="900" height="473" loading="lazy" decoding="async">
+        <div class="meta">
+          <h4>科大讯飞学习机<span class="tag">¥5999–11999</span></h4>
+          <p><b>做到：</b>板书式 AI 讲题 + 精准学，B2G 渠道独大。</p>
+          <p class="no"><b>没做透：</b>讲题 ≠ 场景。万元定价也在流失家长信任。</p>
+          <a href="https://xxj.xunfei.cn" target="_blank" rel="noopener">xxj.xunfei.cn</a>
+        </div>
+      </div>
+      <div class="shot">
+        <img src="assets/nobook.jpg" alt="NOBOOK 虚拟实验官网" width="900" height="473" loading="lazy" decoding="async">
+        <div class="meta">
+          <h4>NOBOOK / 矩道 虚拟实验<span class="tag">B2B 26000 校</span></h4>
+          <p><b>做到：</b>仿真引擎成熟，实验场景做得真。</p>
+          <p class="no"><b>没做透：</b>仿真的是"实验"，不是"解题思路"；且没有 AI 层的个性化。</p>
+          <a href="https://nobook.com" target="_blank" rel="noopener">nobook.com</a>
+        </div>
+      </div>
+      <div class="shot">
+        <img src="assets/khanmigo.jpg" alt="Khanmigo 官网" width="900" height="473" loading="lazy" decoding="async">
+        <div class="meta">
+          <h4>Khanmigo（Khan Academy）<span class="tag">$4/月</span></h4>
+          <p><b>做到：</b>Gemini 现场生成可拖拽的交互图，学生拖、系统实时反应——<b>可视化的天花板</b>。</p>
+          <p class="no"><b>没做透：</b>无中国考纲、无中文生活语境、无理化实验。这也正是我们复刻它的原因。</p>
+          <a href="https://khanmigo.ai" target="_blank" rel="noopener">khanmigo.ai</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tscroll" style="margin-top:20px">
+    <table class="map wide">
+      <thead><tr><th>竞品</th><th>解题可视化</th><th>生活场景化</th><th>知识点集中覆盖</th><th>我们的缝</th></tr></thead>
+      <tbody>
+        <tr><td>学而思 / 讯飞</td><td>●●○ 预制 3D / 板书讲题</td><td>●○○</td><td>●●○ 体系课 + 题库</td><td>能看不能玩 → 做成能玩的</td></tr>
+        <tr><td>作业帮 / 小猿</td><td>●●○ 搜题步骤</td><td>●○○</td><td>●○○ 题海碎片</td><td>越用越碎 → 集中化收口</td></tr>
+        <tr><td>Khanmigo</td><td>●●● 生成式交互图</td><td>●●○ 数学图形可拖</td><td>●●○ Khan 体系</td><td>无中国考纲 → 我们做本土场景</td></tr>
+        <tr><td>NOBOOK / Labster</td><td>●●○ 仿真引擎</td><td>●●● 但仅实验场景</td><td>●○○</td><td>仿实验 → 仿的是解题思路</td></tr>
+        <tr><td>松鼠 AI（LAM）</td><td>●○○</td><td>●○○</td><td>●●● 智适应知识图谱</td><td>最接近集中化，但无场景无可视化</td></tr>
+        <tr><td><b>格物（我们）</b></td><td><b>●●● 可拖即响应</b></td><td><b>●●● 解题场景</b></td><td><b>●●● 全域 + 覆盖门</b></td><td>两轴交叉的空白带</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 判据 ══════════ -->
+<section class="sec" id="evidence">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="secno">P0 验证 · 8 周</span>
+      <h2>不靠"效果好"三个字，<em>靠一组对照数据</em></h2>
+      <p>产品能不能成立，第一件要证的事不是"学生喜欢"，是"讲过的模型换个场景还会不会做"。所以第 7 周必须做对照组对拍。</p>
+    </div>
+    <div class="mile">
+      <div class="wk"><span class="w">W1–W2</span><h4>底座与桥接</h4><p>力学域知识图收口 + 覆盖门跑通；高频模型定版（取前 6 个）。</p><div class="k">判据：真题知识点 100% 归位，无孤儿考点</div></div>
+      <div class="wk"><span class="w">W3–W4</span><h4>场景页 ② ③</h4><p>传送带（机场安检）、电磁感应（强磁掉铜管），复用已验证工程骨架。</p><div class="k">判据：lint 0 错；数值与解析一致</div></div>
+      <div class="wk"><span class="w">W5–W6</span><h4>合体与证据链</h4><p>力学域「一域一页」总图，节点挂场景入口；家长学情报告 + 教师投影模式。</p><div class="k">判据：入口到任一知识点 ≤2 次点击</div></div>
+      <div class="wk"><span class="w">W7–W8</span><h4>对拍与判定门</h4><p>招 n≥10 学生，随机分两组，<b>同内容同题</b>：场景交互组 vs 讲题视频组。</p><div class="k">判据：迁移正确率显著高于讲题组</div></div>
+    </div>
+    <div class="gate">
+      <b>判定门：</b>迁移正确率 <b>≥60%</b><span class="est">【估】</span> 且场景组显著优于讲题组 → 启动 P1（三科铺开 + 形态对接）；
+      <b>不达标 → 归因回炉，不硬推</b>。归因框架已备：是场景设计问题、常识锚点错位，还是迁移题太难？
+      <span class="tag est">n 与阈值均为预估值，对拍后校准</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 形态与合规 ══════════ -->
+<section class="sec" id="form">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="secno">硬约束 · 绕不开的第一件事</span>
+      <h2>数物化是学科类培训，<em>形态不能随便选</em></h2>
+      <p>"双减"红线直接管到学科类。纯线上学科 App 是被整改过的形态——这解释了为什么这条赛道最终长成了硬件的样子。</p>
+    </div>
+    <div class="grid g4">
+      <div class="card"><span class="who">A · 主选</span><h3>硬件载体</h3><p>卖内容、硬件只是壳。<b>讯飞 / 学而思已经走通的合规通道</b>，可复用既有硬件线。</p></div>
+      <div class="card"><span class="who">B · 弃</span><h3>纯 App</h3><p>政策雷区。搜题类 App 曾被整改，不作为主形态。</p></div>
+      <div class="card"><span class="who">C · 辅</span><h3>B2B 进校</h3><p>课后服务政策鼓励，账期慢。场景页天然是教师课件，进校是顺势渠道。</p></div>
+      <div class="card"><span class="who">D · 备胎</span><h3>出海</h3><p>海外华人 / 国际课程，无政策雷、汇率好；但场景有文化语境，需换语境重做。</p></div>
+    </div>
+    <p class="quote">推荐路径：<b>内容生产先行</b>——场景页与知识图不依赖形态，先把内容做成资产；形态走 A 为主、C 为辅，D 作 P2 观察项。</p>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="secno">常见问题</span>
+      <h2>你可能想问的</h2>
+    </div>
+    <details class="faq"><summary>这和搜题 App / 学习机有什么区别？</summary>
+      <div class="ans">搜题 App 是"一题一讲"，用完就散——学生永远不知道自己漏了哪一块。学习机的 AI 讲题仍然是"我讲你听"。格物做的是两件他们没做透的事：把解题思路还原成<b>能动手拖的生活场景</b>，以及把一个领域的知识点<b>一次收齐并机器验完备</b>。</div></details>
+    <details class="faq"><summary>会不会又是"看动画"？</summary>
+      <div class="ans">不会。<b>动画是播给你看的，格物的画面是等你来拖的。</b>页面上每一个演示——绳子的角度、传送带的带速、磁场的宽度——都是可调参数，拖一下物理量立刻重算。你现在就可以在上面那块演示台上试。</div></details>
+    <details class="faq"><summary>知识点的完备性怎么保证？不是你说齐就齐。</summary>
+      <div class="ans">用机器门兜底。三科 65 章的"章 + 节"清单内嵌在校验脚本里，逐条与大纲做归一化匹配，<b>任何缺失条目直接退出码非 0</b>，也就是漏了就自动回炉。当前状态：三科全绿。</div></details>
+    <details class="faq"><summary>物理数值会不会写错？错了就是信誉事故。</summary>
+      <div class="ans">每页必须过"解析数值一致"校验才允许上线。已上线的 3 道真题页与官方解析数值一致；其中 2023 压轴第 2 问的临界磁场宽度，我们按动量定理重推为 <b>W* = 2.00 L</b>，并用该链路验算产热恰等于官方答案。<b>错误的页面不上线。</b></div></details>
+    <details class="faq"><summary>现在能买到吗？多少钱？</summary>
+      <div class="ans">还买不到。<b>现在是 P0 原型阶段</b>，正在做力学域的内容和对照实验，目标是先拿到一组科学的对拍数据再谈商业化。定价预期对标家长心理价位（学习机 2,000–4,000 元带），但形态与定价都未定，一切以验证结果为准。</div></details>
+  </div>
+</section>
+
+<!-- ══════════ CTA ══════════ -->
+<section class="sec" id="cta">
+  <div class="wrap" style="text-align:center">
+    <span class="secno">内测招募</span>
+    <h2 style="font-size:33px;margin:14px 0 12px;letter-spacing:-.01em">想先玩一下，或者想给孩子报名对拍？</h2>
+    <p style="color:var(--dim);max-width:620px;margin:0 auto 28px">
+      力学域内测准备中，计划招募 10 名左右的高中生（含家长知情同意）。也可以只是点进去玩玩那 3 道真题。
+    </p>
+    <div class="cta" style="justify-content:center;display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn primary" href="demo-khanmigo-replica.html">▶ 先玩 3 道真题</a>
+      <a class="btn" href="mailto:?subject=格物内测报名&body=学生年级：%0A想试的科目：%0A联系方式：">申请内测名额</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <span class="logo" style="margin-bottom:12px"><span class="mark"></span>格物 <small>GEWU</small></span>
+        <p>把不可视的解题思路装进生活场景，把一个大领域的知识点一次收齐。<br>数物化 · 场景化 × 集中化。</p>
+      </div>
+      <div>
+        <h5>产品</h5>
+        <p><a href="#scene">场景化教学</a><br><a href="#domain">集中化学习</a><br><a href="demo-khanmigo-replica.html">真题交互演示</a></p>
+      </div>
+      <div>
+        <h5>关于</h5>
+        <p><a href="#vs">竞品对标</a><br><a href="#evidence">验证判据</a><br><a href="#form">形态与合规</a></p>
+      </div>
+    </div>
+    <div class="src">
+      <b>口径来源（可核）：</b>知识大纲与覆盖校验 = 高考物化数知识大钢结构 2026 新高考口径（65 章，覆盖门全绿）；
+      章节分层 = 场景化 × 集中化分层（T 教学层级 × S 场景度双标签）；
+      竞品官网实拍 = 2026-10-03 无头沙屏抓取，站点见图卡链接；
+      Khanmigo 效果口径 = Khan Academy 官方博客（2026-08-27）；定价与市场规模 = 行业调研口径，标注【估】的为预估值。
+      <br><b>诚实声明：</b>本站为<b>产品原型演示</b>，非已上线的商业服务；「格物」为工作名；所有带【估】标记的数字为内部预估，以第 7 周对照实验数据校准为准。
+      <br>© 2026 格物（工作名）· 内测阶段 · 页面最后更新 2026-10-03
+    </div>
+  </div>
+</footer>
+
+<script>
+"use strict";
+/* ═══════════════════════════════════════════════════
+   Hero 演示：行李箱放上行李传送带（板块模型）
+   物理：物块初速 0 被摩擦力加速 a = μg，加速到带速所需距离 s = v²/(2μg)，耗时 t = v/(μg)
+   若 s > 带长 L，则物块在带末端仍未共速，末端速度 v_end = √(2μgL)
+   —— 数值与解析式逐项一致，可手算校验
+   ═══════════════════════════════════════════════════ */
+const $ = id => document.getElementById(id);
+const cv = $("cv"), g = cv.getContext("2d");
+const L = 6.0;                       // 传送带长度 m（固定）
+const G_ACC = 10;                    // g = 10 m/s²
+const PX_PER_M = 92;                 // 像素/米
+const S_BELT = { v: 4.0, mu: 0.30 };
+const S_SIM = { x: 0, v: 0, t: 0, running: false, done: false, mode: "belt" };
+
+const CV_H = +cv.getAttribute("height");   // 基准 CSS 高度只读一次（写 canvas.height 会反射回属性，反复读取会指数放大）
+function fitCanvas(c) {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const cssW = c.clientWidth || 480;
+  c.width = Math.round(cssW * dpr);
+  c.height = Math.round(CV_H * dpr);
+  const ctx = c.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { g: ctx, w: cssW, h: CV_H };
+}
+function beltPhysics() {
+  const { v, mu } = S_BELT, a = mu * G_ACC;
+  const s = v * v / (2 * a);         // 共速所需距离
+  const t = v / a;                   // 共速所需时间
+  const catches = s <= L;            // 带子够不够长让它追上带速
+  const vEnd = catches ? v : Math.sqrt(2 * a * L);
+  return { a, s, t, catches, vEnd };
+}
+function resetSim(kind) {
+  S_SIM.x = 0; S_SIM.v = 0; S_SIM.t = 0; S_SIM.running = false; S_SIM.done = false;
+  S_SIM.mode = kind || "idle";
+  paint();
+}
+function drawArrow(ctx, x1, y1, x2, y2, color) {
+  ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); ctx.lineWidth = 1;
+  const th = Math.atan2(y2 - y1, x2 - x1);
+  ctx.beginPath(); ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - 9 * Math.cos(th - .42), y2 - 9 * Math.sin(th - .42));
+  ctx.lineTo(x2 - 9 * Math.cos(th + .42), y2 - 9 * Math.sin(th + .42));
+  ctx.closePath(); ctx.fill();
+}
+function paint() {
+  const { g: c, w, h } = fitCanvas(cv);
+  const { v, mu } = S_BELT, { a, s, t, catches, vEnd } = beltPhysics();
+  c.clearRect(0, 0, w, h);
+  const padL = 30, beltY = h - 76, beltH = 26;
+  const scale = Math.min(PX_PER_M, (w - padL - 40) / L);   // 自适应缩放
+  const beltW = L * scale;
+
+  // 传送带主体 + 滚轮
+  c.strokeStyle = "#2f3944"; c.lineWidth = 2; c.strokeRect(padL, beltY, beltW, beltH);
+  c.fillStyle = "#1b222b"; c.fillRect(padL, beltY, beltW, beltH);
+  c.fillStyle = "#39434f";
+  for (let i = 0; i < 2; i++) {
+    const cxp = padL + (i ? beltW - 13 : 13);
+    c.beginPath(); c.arc(cxp, beltY + beltH / 2, 11, 0, 7); c.fill();
+  }
+  // 带速指示（跑动的刻痕）
+  const phase = S_SIM.running ? (performance.now() / 1000 * v * scale * 0.5) % 26 : 0;
+  c.strokeStyle = "#4a5a6b"; c.lineWidth = 2;
+  for (let x = padL + 26 - phase; x < padL + beltW - 9; x += 26) {
+    if (x < padL + 9) continue;
+    c.beginPath(); c.moveTo(x, beltY + 4); c.lineTo(x, beltY + beltH - 4); c.stroke();
+  }
+  c.lineWidth = 1;
+  c.fillStyle = "#8b98a6"; c.font = "12px -apple-system,PingFang SC,sans-serif";
+  c.fillText("行李传送带 v = " + v.toFixed(1) + " m/s", padL, beltY - 12);
+
+  // 行李箱（物块）
+  const bw = 46, bh = 30;
+  const bx = padL + S_SIM.x * scale;
+  const byTop = beltY - bh;
+  c.fillStyle = "#0066ff"; c.fillRect(bx, byTop, bw, bh);
+  c.fillStyle = "#00ffff"; c.fillRect(bx, byTop, bw, 3);
+  c.fillStyle = "#cfe6ff"; c.font = "11px -apple-system,PingFang SC,sans-serif";
+  c.fillText("行李", bx + 7, byTop + 20);
+
+  // 速度矢量
+  if (S_SIM.v > 0.02) {
+    drawArrow(c, bx + bw / 2, byTop - 12, bx + bw / 2 + S_SIM.v * 13, byTop - 12, "#00ffff");
+    c.fillStyle = "#00ffff"; c.font = "12px ui-monospace,monospace";
+    c.fillText(S_SIM.v.toFixed(2) + " m/s", bx + bw / 2 + 6, byTop - 18);
+  }
+  // 摩擦力箭头（加速中）
+  if (S_SIM.running && S_SIM.v < v - 1e-3) {
+    drawArrow(c, bx + bw / 2, beltY + beltH + 16, bx + bw / 2 + 34, beltY + beltH + 16, "#ffb020");
+    c.fillStyle = "#ffb020"; c.font = "11px ui-monospace,monospace";
+    c.fillText("f = μmg", bx + bw / 2 - 4, beltY + beltH + 32);
+  }
+  // 带长标尺
+  c.strokeStyle = "#39434f"; c.beginPath();
+  c.moveTo(padL, beltY + beltH + 44); c.lineTo(padL + beltW, beltY + beltH + 44); c.stroke();
+  c.fillStyle = "#5b6b7c"; c.font = "11px ui-monospace,monospace";
+  c.fillText("带长 L = " + L.toFixed(1) + " m", padL + beltW / 2 - 34, beltY + beltH + 60);
+
+  // 左上面板：实时读数
+  c.font = "12px ui-monospace,monospace";
+  const rows = [
+    ["t", S_SIM.t.toFixed(2) + " s"],
+    ["位移 x", S_SIM.x.toFixed(2) + " m"],
+    ["速度 v", S_SIM.v.toFixed(2) + " m/s"],
+    ["加速度 a = μg", a.toFixed(2) + " m/s²"]
+  ];
+  rows.forEach((r, i) => {
+    c.fillStyle = "#5b6b7c"; c.fillText(r[0], padL, 20 + i * 17);
+    c.fillStyle = "#cfd8e3"; c.fillText(r[1], padL + 96, 20 + i * 17);
+  });
+  // 右上：理论值
+  const tx = w - 178;
+  c.fillStyle = "#5b6b7c"; c.fillText("解析预测", tx, 20);
+  c.fillStyle = "#ffb020"; c.fillText("s = v²/2μg = " + s.toFixed(2) + " m", tx, 37);
+  c.fillStyle = "#ffb020"; c.fillText("t = v/μg   = " + t.toFixed(2) + " s", tx, 54);
+  c.fillStyle = catches ? "#39d98a" : "#ff6b6b";
+  c.fillText(catches ? "s < L：能追上带速" : "s > L：追不上，被甩出", tx, 71);
+}
+function tick(now) {
+  if (!S_SIM.running) return;
+  const dt = 1 / 60, { v, mu } = S_BELT, a = mu * G_ACC;
+  if (S_SIM.v < v) { S_SIM.v = Math.min(v, S_SIM.v + a * dt); }
+  S_SIM.x += S_SIM.v * dt; S_SIM.t += dt;
+  if (S_SIM.x >= L) { S_SIM.x = L; S_SIM.running = false; S_SIM.done = true; finish(); }
+  else if (Math.abs(S_SIM.v - v) < 1e-3) { S_SIM.running = false; S_SIM.done = true; finish(true); }
+  paint();
+  if (S_SIM.running) requestAnimationFrame(tick);
+}
+function finish(caught) {
+  const { v, mu } = S_BELT, a = mu * G_ACC, s = v * v / (2 * a), t = v / a;
+  const { catches, vEnd } = beltPhysics();
+  if (caught) {
+    $("vd").innerHTML = "<b>共速了。</b>行李被摩擦力加速 <b>" + t.toFixed(2) + " s</b>、" +
+      "滑行 <b>" + s.toFixed(2) + " m</b> 后与带子同速，此后不再受摩擦力、跟着一起走。" +
+      "（带长 " + L + " m > s = " + s.toFixed(2) + " m，带子足够长）";
+  } else {
+    $("vd").innerHTML = "<b>没追上。</b>带子只有 " + L + " m，行李还没加速到带速就从末端出去了，末端速度 <b>" +
+      vEnd.toFixed(2) + " m/s</b>（小于带速 " + v.toFixed(1) + " m/s）。<br>" +
+      "→ 这就是「打滑」：要么加长带子，要么加大摩擦。调 μ 试试。";
+  }
+  $("fm").innerHTML = "共速条件：s = v²/(2μg) = " + s.toFixed(2) + " m　≤　带长 L = " + L.toFixed(1) +
+    " m　→　" + (catches ? "成立" : "不成立");
+}
+function runSim() {
+  const { catches } = beltPhysics();
+  resetSim("belt");
+  S_SIM.running = true;
+  $("vd").innerHTML = "开始：行李被摩擦力加速（a = μg = " + (S_BELT.mu * G_ACC).toFixed(2) + " m/s²）……";
+  $("st1").classList.remove("on"); $("st2").classList.add("on");
+  requestAnimationFrame(tick);
+}
+function syncLabels() {
+  $("vv").textContent = S_BELT.v.toFixed(1) + " m/s";
+  $("vm").textContent = S_BELT.mu.toFixed(2);
+  const { s, a } = beltPhysics();
+  $("fm").innerHTML = "摩擦加速度 a = μg = " + a.toFixed(2) + " m/s²　｜　" +
+    "共速所需距离 s = v²/(2μg) = <b>" + s.toFixed(2) + " m</b>（带长 " + L.toFixed(1) + " m）";
+  $("st3").classList.add("on");
+  $("st1").classList.remove("on"); $("st2").classList.remove("on");
+}
+$("sv").addEventListener("input", e => { S_BELT.v = +e.target.value; syncLabels(); resetSim(); });
+$("sm").addEventListener("input", e => { S_BELT.mu = +e.target.value; syncLabels(); resetSim(); });
+$("run").addEventListener("click", runSim);
+window.addEventListener("resize", () => paint());
+syncLabels();
+resetSim();
+paint();
+</script>
+</body>
+</html>

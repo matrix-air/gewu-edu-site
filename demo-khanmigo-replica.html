@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khanmigo 效果复刻 · 高考物理大题交互教学（2024/2023 真题）</title>
+<style>
+  :root{
+    --blue:#0066ff; --cyan:#0891b2; --ink:#1f2733; --mist:#f4f6f9; --line:#dbe2ec;
+    --ok:#047857; --warn:#b45309; --bad:#c2410c; --card:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif;background:var(--mist);color:var(--ink);line-height:1.6}
+  .wrap{max-width:1360px;margin:0 auto;padding:18px 20px 60px}
+  header.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 18px;margin-bottom:10px}
+  h1{font-size:22px}
+  h1 b{color:var(--blue)}
+  .stat{font-size:13px;color:#4b5b6e}
+  .stat b{color:var(--blue)}
+  .scope{background:#0f1722;color:#d7e3f0;border-radius:8px;padding:10px 16px;font-size:13px;margin-bottom:14px}
+  .scope b{color:#67e8f9}
+  .tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .tabs button{border:1px solid var(--line);background:#fff;padding:8px 16px;border-radius:8px;font-size:14px;cursor:pointer;color:var(--ink)}
+  .tabs button.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+  .problem{display:none}
+  .problem.on{display:block}
+  .qcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin-bottom:14px;font-size:14px}
+  .qcard .meta{font-size:12px;color:#5b6b7c;margin-bottom:8px}
+  .qcard .meta a{color:var(--blue)}
+  .qcard p{margin:6px 0}
+  .qcard .ask{margin-top:8px;font-weight:600}
+  .bench{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:14px;align-items:start}
+  @media (max-width:1000px){.bench{grid-template-columns:1fr}}
+  .simwrap,.tutor{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .simwrap h3,.tutor h3{font-size:15px;margin-bottom:8px}
+  .simwrap h3 span,.tutor h3 span{font-weight:400;font-size:12px;color:#5b6b7c;margin-left:8px}
+  canvas{display:block;width:100%;background:#fff;border:1px solid var(--line);border-radius:6px;touch-action:none}
+  .controls{display:flex;flex-wrap:wrap;gap:12px 18px;margin-top:10px;font-size:13px;align-items:center}
+  .controls label{display:flex;align-items:center;gap:8px}
+  .controls input[type=range]{width:130px;accent-color:var(--blue)}
+  .controls .val{min-width:64px;font-variant-numeric:tabular-nums;color:var(--blue);font-weight:600}
+  .controls button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 12px;font-size:13px;cursor:pointer}
+  .controls button.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+  .verdict{margin-top:10px;font-size:13px;padding:8px 12px;border-radius:6px;background:var(--mist);min-height:20px}
+  .verdict b{color:var(--blue)}
+  .verdict .ref{color:#5b6b7c}
+  .tutorbox{max-height:none}
+  .msg{font-size:13.5px;margin:8px 0}
+  .msg.tutor .bubble{background:#eef4ff;border-radius:10px;padding:9px 12px;display:inline-block}
+  .msg.you .bubble{background:#f1f3f6;border-radius:10px;padding:9px 12px;display:inline-block}
+  .opts{display:flex;flex-direction:column;gap:6px;margin:6px 0 10px}
+  .opts button{text-align:left;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer}
+  .opts button:hover{border-color:var(--blue)}
+  .opts button.ok{background:#e8faf3;border-color:var(--ok);color:var(--ok);font-weight:600}
+  .opts button.no{background:#fef3f2;border-color:var(--bad);color:var(--bad)}
+  .fb{font-size:12.5px;color:#5b6b7c;margin:2px 0 8px}
+  .numeric{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:10px 0}
+  .numeric input{width:110px;border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:13px}
+  .numeric .unit{color:#5b6b7c}
+  .numeric button{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:13px}
+  .sol{font-size:12.5px;color:var(--ok);margin:4px 0}
+  .variant{border-top:1px dashed var(--line);margin-top:12px;padding-top:10px;font-size:13.5px}
+  .variant h4{font-size:13.5px;margin-bottom:6px}
+  .variant .gen{font-size:12px;color:#5b6b7c}
+  footer{margin-top:26px;font-size:12.5px;color:#4b5b6e}
+  footer table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12.5px}
+  footer td,footer th{border:1px solid var(--line);padding:6px 10px;text-align:left}
+  footer th{background:#fff}
+  footer a{color:var(--blue)}
+  .chip{display:inline-block;background:#eef4ff;color:var(--blue);border-radius:10px;font-size:12px;padding:2px 10px;margin-left:6px}
+  .explore{margin-top:8px;font-size:13px;background:#fffbea;border:1px solid #f3e3ae;border-radius:6px;padding:8px 12px}
+  .hint{font-size:12px;color:#5b6b7c;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>Khanmigo 效果复刻 · <b>高考物理大题</b>交互教学</h1>
+    <span class="stat">本会话引导步首答正确率 <b id="statLine">0 / 0</b>（复刻 next-item correctness 度量，仅本地）</span>
+  </header>
+
+  <div class="scope">
+    复刻范围（诚实标注）：<b>拖动即响应的可调图形</b>=真复刻（canvas 物理引擎实时计算）；<b>苏格拉底式引导</b>=效果复刻（引导树按官方解析人工编排，非 LLM 动态生成，离线可跑）；<b>变式题自动生成+判分</b>=真复刻（生成公式在源码内可审）。Khanmigo 原始效果依据官方博客：学生拖动图中线段、系统对其位置实时作出反应；早期数据显示同技能下一题正确率改善。
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button data-p="p1" class="on">① 2024·新课标·24 双绳吊装（静力学）</button>
+    <button data-p="p2">② 2024·新课标·25 板块+平抛（动力学）</button>
+    <button data-p="p3">③ 2023·新课标·26 电磁感应线框（压轴）</button>
+  </div>
+
+  <!-- ═══════════ P1 ═══════════ -->
+  <section class="problem on" id="p1">
+    <div class="qcard">
+      <div class="meta">2024 年高考新课标卷 第 24 题 ｜ 题干据公开解析还原（原卷为图片），数值与方程与解析完全一致 ｜ 来源：<a href="https://zhuanlan.zhihu.com/p/699442944" target="_blank">知乎·2024 新课标卷逐题解析</a></div>
+      <p>如图，两根不可伸长的轻绳 P、Q 系于结点 O，重物通过 O 悬挂。绳 P 与竖直方向成 α=37°，绳 Q 与竖直方向成 β=53°（两绳分居两侧），系统处于静止。重物所受重力 G=420 N。</p>
+      <p class="ask">（1）求绳 P、Q 的拉力大小；（2）现使重物在两绳拉动下沿竖直方向缓慢下降 h=10 m，求两绳拉力对重物做的总功 W。</p>
+      <p class="hint">官方解析按 sin37°=0.6、sin16°≈0.28 取近似得 F<sub>Q</sub>=900 N；本页 canvas 给出精确三角值，两者并列展示。</p>
+    </div>
+    <div class="bench">
+      <div class="simwrap">
+        <h3>可调交互图<span>拖动 P 绳手柄改变 α，系统实时重新平衡（Khanmigo「拖动即响应」复刻）</span></h3>
+        <canvas id="c1" height="420"></canvas>
+        <div class="controls">
+          <label>α <input type="range" id="s1a" min="12" max="50" step="0.5" value="37"><span class="val" id="v1a">37.0°</span></label>
+          <label>β <input type="range" id="s1b" min="42" max="70" step="0.5" value="53"><span class="val" id="v1b">53.0°</span></label>
+          <label>G <input type="range" id="s1g" min="200" max="800" step="10" value="420"><span class="val" id="v1g">420 N</span></label>
+          <button class="primary" id="b1reset">复位到真题角度</button>
+        </div>
+        <div class="verdict" id="d1">拖动 α 手柄，观察 F<sub>Q</sub> 如何随 β−α 变小而急剧增大。</div>
+        <div class="explore">探索任务：把 α 拖到 50° 附近（β=53°）——两绳接近共线，F<sub>Q</sub> 发散。这正是 sin(β−α) 出现在分母里的物理含义。</div>
+      </div>
+      <div class="tutor tutorbox">
+        <h3>Khanmigo 式导师<span>苏格拉底引导 · 答对方可前进</span></h3>
+        <div id="t1"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ P2 ═══════════ -->
+  <section class="problem" id="p2">
+    <div class="qcard">
+      <div class="meta">2024 年高考新课标卷 第 25 题 ｜ 原题文字已核（<a href="https://www.scribd.com/document/1032583034/" target="_blank">Scribd 原卷</a>） ｜ 解析：<a href="https://zhuanlan.zhihu.com/p/699442944" target="_blank">知乎逐题解析</a></div>
+      <p>如图，一长度 l=1.0 m 的均匀薄板初始时静止在一光滑平台上，薄板的右端与平台的边缘 O 对齐。薄板上的一小物块从薄板的左端以某一初速度向右滑动，当薄板运动的距离 Δl = l/6 时，物块从薄板右端水平飞出；当物块落到地面时，薄板中心恰好运动到 O 点。已知物块与薄板的质量均为 m，物块与薄板相对滑动过程中，物块做匀减速直线运动，薄板做匀加速直线运动；重力加速度大小为 g。平台高度 h 见第（2）问。</p>
+      <p class="ask">（1）求物块的初速度大小 v₀ 及其在薄板上运动的时间 t₁；（2）求平台距地面的高度 h。</p>
+      <p class="hint">本页仿真按原题几何建模：平台光滑、物板等质量、飞出后物块平抛（飞出点高度取第 2 问答案 5/9 m 作场景值）。</p>
+    </div>
+    <div class="bench">
+      <div class="simwrap">
+        <h3>板块运动仿真<span>调 v₀ / μ 实时重跑，观察飞出条件与「恰好」巧合</span></h3>
+        <canvas id="c2" height="360"></canvas>
+        <div class="controls">
+          <label>v₀ <input type="range" id="s2v" min="1" max="8" step="0.1" value="4"><span class="val" id="v2v">4.0 m/s</span></label>
+          <label>μ <input type="range" id="s2m" min="0.1" max="0.6" step="0.01" value="0.3"><span class="val" id="v2m">0.30</span></label>
+          <button class="primary" id="b2run">运行</button>
+          <button id="b2reset">复位</button>
+        </div>
+        <div class="verdict" id="d2">点「运行」观看：物块减速、薄板加速，飞出后物块平抛、薄板匀速。真题参数下注意落地瞬间与薄板中心到 O 的巧合。</div>
+        <div class="explore">探索任务：把 v₀ 逐渐调低——存在一个临界值，物块在到达右端前与薄板共速、再也飞不出去。找到它。</div>
+      </div>
+      <div class="tutor tutorbox">
+        <h3>Khanmigo 式导师<span>苏格拉底引导 · 答对方可前进</span></h3>
+        <div id="t2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ P3 ═══════════ -->
+  <section class="problem" id="p3">
+    <div class="qcard">
+      <div class="meta">2023 年高考新课标卷 第 26 题（压轴，难度 12）｜ 题干据公开解析还原（原卷为图片），电阻、冲量、产热各式与解析一致 ｜ 来源：<a href="https://zhuanlan.zhihu.com/p/659029909" target="_blank">知乎·2023 新课标卷逐题解析</a></div>
+      <p>一正方形导线框，边长 L，质量 m，每边电阻均为 R₀，置于绝缘水平面上。<b>(1)</b> 线框以初速度 v₀ 进入并穿越一宽度恰为 L 的匀强磁场（B 垂直纸面），进、出磁场过程均只有一条边切割磁感线，线框完全在磁场中运动时无电流。已知穿出磁场时的速度恰为 v₀/2，求 v₀。</p>
+      <p><b>(2)</b> 改将线框放在两条水平导轨上，导轨沿运动方向、恰好接通线框上下两条边（上下边被导轨短路，无电流），导轨右端外接电阻 R₁，线框左边经导轨与 R₁ 构成回路。线框以第 (1) 问的 v₀ 进入宽度足够大的匀强磁场，上下边不再短路：进入磁场时只有右边切割（右边 R₀ 与「左边 R₀ 并联 R₁」串联）；完全进入后左右两边等效为两个并联电源。已知全过程线框恰好在到达磁场右边界的瞬间停止，且 R₁ 上产生的总热量 Q = 3B⁴L⁶/(25mR₀²)。求 R₁（用 m、B、L、R₀ 表示，答案 R₁=2R₀）。</p>
+      <p class="hint">解析给出的电路：进入段 R=5/3·R₀，完全进入后 R=5/2·R₀；进入段安培力冲量 B²L³/(5R₀/3)。</p>
+    </div>
+    <div class="bench">
+      <div class="simwrap">
+        <h3>电磁感应仿真<span>调 B / 磁场宽度 W / v₀，观察减速相位与停点（数值积分，物理相位与解析一致）</span></h3>
+        <canvas id="c3" height="380"></canvas>
+        <div class="controls">
+          <label>模式 <select id="s3mode"><option value="A">第 1 问·无导轨（W=L 变宽可调）</option><option value="B">第 2 问·导轨+R₁</option></select></label>
+          <label>B <input type="range" id="s3b" min="0.5" max="3" step="0.05" value="1"><span class="val" id="v3b">1.00 T</span></label>
+          <label>W <input type="range" id="s3w" min="0.5" max="4" step="0.05" value="1"><span class="val" id="v3w">1.00 L</span></label>
+          <button class="primary" id="b3run">运行</button>
+          <button id="b3exam">载入真题参数</button>
+          <button id="b3reset">复位</button>
+        </div>
+        <div class="verdict" id="d3">第 1 问真题条件：W=L、v₀=B²L³/(mR₀)（本页 m=1、R₀=1、L=1）→ 出射速度恰减半。点「载入真题参数」验证。</div>
+        <div class="explore">探索任务：切到「第 2 问」模式，v₀=B²L³/mR₀ 自动取值，扫 W 找出「恰好停在右边界的临界磁场宽度 W*」，再用动量定理（Δv=B²L²·Δx/mR）自己推一遍对照。</div>
+      </div>
+      <div class="tutor tutorbox">
+        <h3>Khanmigo 式导师<span>苏格拉底引导 · 答对方可前进</span></h3>
+        <div id="t3"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <b>Khanmigo 效果对照（本页复刻范围）</b>
+    <table>
+      <tr><th>Khanmigo 要素（官方博客口径）</th><th>本页实现</th><th>状态</th></tr>
+      <tr><td>学生拖动图中元素、系统对其位置实时反应</td><td>P1 拖 α 手柄 / P2 拖 v₀、μ / P3 拖 B、W，物理量实时重算</td><td>真复刻</td></tr>
+      <tr><td>苏格拉底式引导、不给直接答案</td><td>每题 5 步引导树：引导性提问+干扰项纠偏，答对前进；直接看答案置底</td><td>效果复刻（脚本化引导树）</td></tr>
+      <tr><td>Targeted practice（教师可审）</td><td>每题末尾随机变式题自动生成并判分，生成公式开源在页面源码</td><td>真复刻</td></tr>
+      <tr><td>next-item correctness 度量</td><td>页内会话统计各引导步首答正确率（页首 chip，仅本地）</td><td>复刻</td></tr>
+      <tr><td>Gemini 现场生成交互图</td><td>预置物理仿真替代；如需真 LLM 动态生成，需本地代理携带 API key（本页为离线零依赖版，未内置）</td><td>未复刻</td></tr>
+    </table>
+    真题来源：<a href="https://zhuanlan.zhihu.com/p/699442944" target="_blank">2024 新课标卷逐题解析</a> ｜ <a href="https://zhuanlan.zhihu.com/p/659029909" target="_blank">2023 新课标卷逐题解析</a> ｜ <a href="https://www.scribd.com/document/1032583034/" target="_blank">2024 原卷（Scribd）</a> ｜ Khanmigo 效果：<a href="https://blog.khanacademy.org/new-ai-tools-bring-interactive-diagrams-and-targeted-practice-thanks-to-khan-academys-partnership-with-google-org" target="_blank">Khan Academy 官方博客</a>。调研与复刻对照详见同目录 README.md。
+  </footer>
+</div>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const stats = {first:0, total:0};
+function updStat(){ $("statLine").textContent = stats.first + " / " + stats.total; }
+
+function drawActive(){ drawP1(); drawP2(); drawP3(); }
+
+/* ───────── tabs ───────── */
+document.querySelectorAll("#tabs button").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    document.querySelectorAll("#tabs button").forEach(x=>x.classList.remove("on"));
+    document.querySelectorAll(".problem").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on"); $(b.dataset.p).classList.add("on");
+    resizeAll(); if(b.dataset.p==="p2") resetP2(); if(b.dataset.p==="p3") resetP3(); drawActive();
+  });
+});
+
+/* ───────── canvas helpers ───────── */
+function fit(cv){
+  const dpr = window.devicePixelRatio||1, w = cv.clientWidth||600, h = +cv.getAttribute("height");
+  cv.width = w*dpr; cv.height = h*dpr;
+  const g = cv.getContext("2d"); g.setTransform(dpr,0,0,dpr,0,0); return {g,w,h};
+}
+function resizeAll(){ ["c1","c2","c3"].forEach(id=>{ const cv=$(id); fit(cv); }); }
+
+/* ═══════════ P1 静力学 ═══════════ */
+const P1 = {alpha:37*Math.PI/180, beta:53*Math.PI/180, G:420, drag:false};
+function p1Forces(){
+  const {alpha:a, beta:b, G} = P1, d = b-a;
+  if (d <= 0.02) return {Fq:Infinity, Fp:Infinity, deg:d};
+  const Fq = G*Math.sin(a)/Math.sin(d);
+  return {Fq, Fp:Fq*Math.sin(b)/Math.sin(a), deg:d};
+}
+function drawP1(){
+  const {g,w,h} = fit($("c1")); g.clearRect(0,0,w,h);
+  grid(g,w,h);
+  const cx=w*0.44, cy=h*0.44, S=Math.min(w,h)*0.0035;   // px per N base
+  const {Fq,Fp,deg} = p1Forces();
+  const cap = v=>Math.min(v, 2600);                      // clamp visual
+  // ceiling arc + node
+  g.strokeStyle="#94a3b8"; g.beginPath(); g.arc(cx,cy-150,150,Math.PI*0.15,Math.PI*0.85); g.stroke();
+  g.fillStyle="#334155"; g.beginPath(); g.arc(cx,cy,5,0,7); g.fill();
+  // load
+  const Lg = 60 + P1.G*0.12;
+  g.strokeStyle="#475569"; g.lineWidth=3; g.beginPath(); g.moveTo(cx,cy); g.lineTo(cx,cy+Lg); g.stroke(); g.lineWidth=1;
+  drawArrow(g,cx,cy+Lg,cx,cy+Lg+46,"#475569");
+  g.fillStyle="#334155"; g.font="13px -apple-system"; g.fillText("G="+P1.G+" N", cx+10, cy+Lg+30);
+  // rope P: up-right, alpha from vertical
+  const a=P1.alpha, Lp=150;
+  const px=cx+Math.sin(a)*Lp, py=cy-Math.cos(a)*Lp;
+  g.strokeStyle="#cbd5e1"; g.beginPath(); g.moveTo(cx,cy); g.lineTo(px,py); g.stroke();
+  g.fillStyle="#0066ff"; g.beginPath(); g.arc(px,py,9,0,7); g.fill();
+  g.fillStyle="#94a3b8"; g.fillText("拖我改 α", px+12, py+4);
+  // force vectors
+  const fs = Math.min(S*8, 90/Math.max(Fp,1));           // vector scale
+  const vP = 46+cap(Fp)*fs*0.55, vQ = 46+cap(Fq)*fs*0.55;
+  drawArrow(g,cx,cy,cx+Math.sin(a)*vP, cy-Math.cos(a)*vP, "#0066ff");
+  g.fillStyle="#0066ff"; g.fillText("F_P", cx+Math.sin(a)*vP+8, cy-Math.cos(a)*vP);
+  const bq=P1.beta;
+  drawArrow(g,cx,cy,cx-Math.sin(bq)*vQ, cy+Math.cos(bq)*vQ, "#0891b2");
+  g.fillStyle="#0891b2"; g.fillText("F_Q", cx-Math.sin(bq)*vQ-40, cy+Math.cos(bq)*vQ);
+  // readout
+  g.fillStyle="#1f2733"; g.font="14px -apple-system";
+  const lines = isFinite(Fq)
+    ? ["F_Q = G·sinα / sin(β−α) = "+Fq.toFixed(0)+" N（精确）",
+       "官方近似口径 sin37°=0.6, sin16°≈0.28 → "+(P1.G*0.6/0.28).toFixed(0)+" N",
+       "F_P = "+Fp.toFixed(0)+" N（近似口径 "+(P1.G*0.8/0.28).toFixed(0)+" N）"]
+    : ["β−α → 0：两绳近乎共线，拉力发散（F→∞）"];
+  lines.forEach((t,i)=>g.fillText(t, 16, h-58+i*18));
+  const dEl=$("d1");
+  if(!isFinite(Fq)) dEl.innerHTML="<b>发散警告</b>：α 已贴近 β，绳子近乎共线，拉力发散（F→∞）——真实吊装里这意味着断绳风险。";
+  else if(deg<0.35) dEl.innerHTML="<b>注意</b>：β−α="+ (deg*180/Math.PI).toFixed(1) +"°，F_Q 精确值已达 <b>"+Fq.toFixed(0)+" N</b>，远超重物重量（官方近似口径 "+(P1.G*0.6/0.28).toFixed(0)+" N）——角度越接近共线，绳越吃力。";
+  else dEl.innerHTML="当前：F_Q = <b>"+Fq.toFixed(0)+" N</b>，F_P = <b>"+Fp.toFixed(0)+" N</b>（β−α="+(deg*180/Math.PI).toFixed(1)+"°）。真题角度（37°/53°）：精确 917/1228 N，官方近似口径 900 / 1200 N。";
+}
+(function(){
+  const cv=$("c1");
+  function setAFromEvent(e){
+    const r=cv.getBoundingClientRect(), mx=e.clientX-r.left, my=e.clientY-r.top;
+    const cx=r.width*0.44, cy=+cv.getAttribute("height")*0.44;
+    let ang=Math.atan2(mx-cx, cy-my);            // angle from vertical
+    ang=Math.max(12*Math.PI/180, Math.min(50*Math.PI/180, ang));
+    P1.alpha=ang; $("s1a").value=(ang*180/Math.PI).toFixed(1); $("v1a").textContent=(ang*180/Math.PI).toFixed(1)+"°";
+    drawP1();
+  }
+  cv.addEventListener("pointerdown",e=>{ const r=cv.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+    const cx=r.width*0.44, cy=+cv.getAttribute("height")*0.44, a=P1.alpha;
+    const px=cx+Math.sin(a)*150, py=cy-Math.cos(a)*150;
+    if(Math.hypot(mx-px,my-py)<22){P1.drag=true; cv.setPointerCapture(e.pointerId);} });
+  cv.addEventListener("pointermove",e=>{ if(P1.drag) setAFromEvent(e); });
+  cv.addEventListener("pointerup",()=>P1.drag=false);
+})();
+$("s1a").addEventListener("input",e=>{P1.alpha=+e.target.value*Math.PI/180;$("v1a").textContent=(+e.target.value).toFixed(1)+"°";drawP1();});
+$("s1b").addEventListener("input",e=>{P1.beta=+e.target.value*Math.PI/180;$("v1b").textContent=(+e.target.value).toFixed(1)+"°";drawP1();});
+$("s1g").addEventListener("input",e=>{P1.G=+e.target.value;$("v1g").textContent=P1.G+" N";drawP1();});
+$("b1reset").addEventListener("click",()=>{P1.alpha=37*Math.PI/180;P1.beta=53*Math.PI/180;P1.G=420;
+  $("s1a").value=37;$("s1b").value=53;$("s1g").value=420;$("v1a").textContent="37.0°";$("v1b").textContent="53.0°";$("v1g").textContent="420 N";drawP1();});
+
+function drawArrow(g,x1,y1,x2,y2,color){
+  g.strokeStyle=color; g.fillStyle=color; g.lineWidth=2.5;
+  g.beginPath(); g.moveTo(x1,y1); g.lineTo(x2,y2); g.stroke(); g.lineWidth=1;
+  const th=Math.atan2(y2-y1,x2-x1);
+  g.beginPath(); g.moveTo(x2,y2);
+  g.lineTo(x2-10*Math.cos(th-0.4), y2-10*Math.sin(th-0.4));
+  g.lineTo(x2-10*Math.cos(th+0.4), y2-10*Math.sin(th+0.4));
+  g.closePath(); g.fill();
+}
+function grid(g,w,h){ g.strokeStyle="#eef2f7"; for(let x=0;x<w;x+=28){g.beginPath();g.moveTo(x,0);g.lineTo(x,h);g.stroke();} for(let y=0;y<h;y+=28){g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();} }
+
+/* ═══════════ P2 板块+平抛 ═══════════ */
+const P2 = {v0:4, mu:0.3, l:1.0, g:10, hp:5/9, running:false, t:0, done:false,
+  xb:0, xp:0, vb:4, vp:0, phase:"slide", trace:[], vt:[]};
+const SCALE2 = 190; // px per meter
+function resetP2(){
+  Object.assign(P2,{running:false,t:0,done:false,xb:0,xp:0,vb:P2.v0,vp:0,phase:"slide",trace:[],vt:[],flySet:false,flyT:0});
+  drawP2(); $("d2").innerHTML="参数已复位，点「运行」开始。";
+}
+function stepP2(dt){
+  const {mu,g,l}=P2;
+  if(P2.phase==="slide"){
+    P2.vb-=mu*g*dt; P2.vp+=mu*g*dt;
+    P2.xb+=P2.vb*dt; P2.xp+=P2.vp*dt;
+    P2.vt.push([P2.t,P2.vb,P2.vp]);
+    if(P2.xb-P2.xp>=l){ P2.phase="fly"; P2.flySet=true; P2.flyT=P2.t;
+      $("d2").innerHTML="物块已从右端飞出：v₁="+P2.vb.toFixed(2)+" m/s，板速 v₂="+P2.vp.toFixed(2)+" m/s，板位移 Δl="+(P2.xp).toFixed(3)+" m（真题参考 0.167）。"; }
+    else if(P2.vb<=P2.vp){ P2.phase="together"; P2.vb=P2.vp; $("d2").innerHTML="<b>未飞出</b>：物块与薄板在到达右端前共速（共同速度 "+P2.vp.toFixed(2)+" m/s），此后一起匀速。调高 v₀ 试试。"; P2.running=false; P2.done=true; }
+  } else if(P2.phase==="fly"){
+    P2.xp+=P2.vp*dt;                                  // plank coasts (frictionless)
+    P2.vt.push([P2.t,P2.vb,P2.vp]);
+    const tFall = Math.sqrt(2*P2.hp/P2.g);
+    if(P2.t>=P2.flyT+tFall){
+      P2.phase="land"; P2.running=false; P2.done=true;
+      const centreOff = P2.xp - (l/2);
+      $("d2").innerHTML+="<br>物块落地：历时 "+tFall.toFixed(3)+" s，水平位移 "+(P2.vb*tFall).toFixed(3)+" m。此刻薄板中心相对边缘 O："+(centreOff>=0?"已越过 ":"距 O 还有 ")+Math.abs(centreOff).toFixed(3)+" m。真题 v₀=4、μ=0.3 时应恰好到达 O。";
+    }
+  }
+}
+function drawP2(){
+  const {g,w,h}=fit($("c2")); g.clearRect(0,0,w,h);
+  const gy=h-70, ox=40;                               // ground y, origin x
+  // ground + platform
+  const edgeX = ox + 2.2*SCALE2;
+  g.fillStyle="#e2e8f0"; g.fillRect(ox, gy-P2.hp*SCALE2, edgeX-ox, P2.hp*SCALE2);
+  g.strokeStyle="#94a3b8"; g.strokeRect(ox, gy-P2.hp*SCALE2, edgeX-ox, P2.hp*SCALE2);
+  g.fillStyle="#64748b"; g.font="12px -apple-system"; g.fillText("平台（光滑）", ox+8, gy-P2.hp*SCALE2+16);
+  g.fillStyle="#0f1722"; g.fillText("O", edgeX-4, gy-P2.hp*SCALE2-6);
+  g.strokeStyle="#cbd5e1"; g.beginPath(); g.moveTo(0,gy); g.lineTo(w,gy); g.stroke();
+  g.fillStyle="#64748b"; g.fillText("地面", w-44, gy+16);
+  // plank: right end starts at O
+  const pl= P2.l*SCALE2, px=edgeX+P2.xp*SCALE2-pl, py=gy-P2.hp*SCALE2;
+  g.fillStyle="#fbbf24"; g.fillRect(px, py-14, pl, 12);
+  g.fillStyle="#92400e"; g.beginPath(); g.arc(px+pl/2, py-8, 3, 0, 7); g.fill();
+  g.fillStyle="#92400e"; g.fillText("薄板中心", px+pl/2-24, py-18);
+  // block（物块沿板从左端滑到右端：左缘世界坐标 = 边缘O + (x_b − l)·比例）
+  {
+    const bx=edgeX+(P2.xb-P2.l)*SCALE2, byTop=py-14;
+    let bY=byTop-16, bX=bx;
+    if(P2.phase==="fly"||P2.phase==="land"){
+      const tF=Math.min(P2.t-P2.flyT, Math.sqrt(2*P2.hp/P2.g));
+      bX=bx+P2.vb*tF*SCALE2;
+      bY=byTop-16 + 0.5*P2.g*tF*tF*SCALE2;           // 平抛下落（米→像素）
+    }
+    g.fillStyle="#0066ff"; g.fillRect(bX, bY, 24, 16);
+    g.fillStyle="#0066ff";
+    if(P2.vb>0.02){ drawArrow(g, bX+12, py-40, bX+12+P2.vb*14, py-40, "#0066ff"); g.fillText("物块 "+P2.vb.toFixed(1), bX+6, py-46); }
+  }
+  // velocity vectors
+  if(P2.vp>0.02){ drawArrow(g, px+pl/2, py+8, px+pl/2+P2.vp*14, py+8, "#0891b2"); g.fillStyle="#0891b2"; g.fillText("板 "+P2.vp.toFixed(1), px+pl/2, py+26); }
+  // v-t mini graph
+  const gx=w-220, gy2=24;
+  g.fillStyle="#ffffff"; g.strokeStyle="#dbe2ec"; g.strokeRect(gx,gy2,200,90); g.fillStyle="#fff"; g.fillRect(gx,gy2,200,90);
+  g.strokeStyle="#dbe2ec"; g.strokeRect(gx,gy2,200,90);
+  g.fillStyle="#64748b"; g.fillText("v–t", gx+4, gy2+12);
+  const tmax=Math.max(1.2, P2.t), vmax=Math.max(P2.v0, ...P2.vt.map(r=>Math.max(r[1],r[2])),1);
+  P2.vt.forEach((r,i)=>{ if(i===0)return; const p0=P2.vt[i-1];
+    g.strokeStyle="#0066ff"; g.beginPath();
+    g.moveTo(gx+200*p0[0]/tmax, gy2+90-(90*p0[1]/vmax)); g.lineTo(gx+200*r[0]/tmax, gy2+90-(90*r[1]/vmax)); g.stroke();
+    g.strokeStyle="#0891b2"; g.beginPath();
+    g.moveTo(gx+200*p0[0]/tmax, gy2+90-(90*p0[2]/vmax)); g.lineTo(gx+200*r[0]/tmax, gy2+90-(90*r[2]/vmax)); g.stroke();
+  });
+  g.fillStyle="#1f2733"; g.font="13px -apple-system";
+  g.fillText("t="+P2.t.toFixed(2)+" s", 16, 20);
+}
+$("s2v").addEventListener("input",e=>{P2.v0=+e.target.value;$("v2v").textContent=P2.v0.toFixed(1)+" m/s";resetP2();});
+$("s2m").addEventListener("input",e=>{P2.mu=+e.target.value;$("v2m").textContent=P2.mu.toFixed(2);resetP2();});
+$("b2run").addEventListener("click",()=>{ if(P2.done) resetP2(); P2.running=true; });
+$("b2reset").addEventListener("click",resetP2);
+
+/* ═══════════ P3 电磁感应 ═══════════ */
+const P3 = {mode:"A", B:1, W:1, v0:1, L:1, m:1, R0:1, running:false, t:0, x:0, v:1, done:false,
+  phase:"enter", vt:[], xmax:0};
+const SCALE3=90;
+function resetP3(){ Object.assign(P3,{running:false,t:0,x:-P3.L,v:P3.B*P3.B*P3.L*P3.L*P3.L/(P3.m*P3.R0),done:false,phase:"enter",vt:[]});
+  $("v3b").textContent=P3.B.toFixed(2)+" T";
+  drawP3();
+  $("d3").innerHTML = P3.mode==="A"
+   ? "第 1 问真题条件：W=L、v₀=B²L³/(mR₀)（本页 m=1、R₀=1、L=1，B 滑条改动时 v₀ 自动按该式取值）→ 出射速度恰减半。点「载入真题参数」验证。"
+   : "第 2 问：进入段 R=5/3 R₀、完全进入后 R=5/2 R₀。扫 W 找「恰好停在右边界的临界宽度」——v₀=B²L³/mR₀ 时 W*=2.00 L（进入段冲量使 v 降至 0.4v₀，场内 dv/dx 恒定再走 1.00 L 停止；可顺带验算 R₁ 产热恰为 3B⁴L⁶/25mR₀²）。"; }
+function stepP3(dt){
+  const {B,L,m,R0}=P3, W=P3.W*P3.L;
+  const front=P3.x+L, back=P3.x;
+  const rightIn = front>0 && front<W, leftIn = back>0 && back<W;
+  let R=null, cutting=false;
+  if(P3.mode==="A"){
+    // 无导轨：仅一条边在磁场内时切割（两条边同进同出或框套住窄磁场时磁通不变、无力）
+    cutting = (rightIn !== leftIn);
+    if(cutting) R=4*R0;
+  } else {
+    // 导轨模式：上下边被短路，只要有边在场内就有电流。进入段 R=5/3R0，其余 5/2R0；
+    // 真题停于右边界、不含冲出段；冲出段近似按 5/2R0 减速直至完全离场（判定如实报「已冲出」）
+    if(rightIn || leftIn || (back>=0 && front<=W)){ cutting=true; R=(back<0)?(5/3)*R0:(5/2)*R0; }
+  }
+  P3.phase = cutting ? (back<0 ? "enter" : (front<=W ? "inside" : "exit"))
+                     : ((back>=W || front<=0) ? "out" : "inside");
+  if(cutting && P3.v>0){ P3.v -= (B*B*L*L*P3.v)/(m*R)*dt; }
+  P3.x += P3.v*dt; P3.t += dt;
+  P3.vt.push([P3.t,P3.v]);
+  if(P3.v<=0.005){   // 剩余滑距≈v/c<0.013L，判定误差远小于容差 0.05L；避免指数尾拖慢体验
+    P3.v=0; P3.running=false; P3.done=true;
+    const stop=P3.x+P3.L, gap=stop/P3.L-P3.W;
+    $("d3").innerHTML="停止：线框前端停在 x="+(stop/P3.L).toFixed(2)+" L，磁场右边界在 "+P3.W.toFixed(2)+" L —— "
+      +(Math.abs(gap)<0.05?"<b>恰好停在右边界！</b>"+(P3.mode==="B"&&Math.abs(P3.W-2.0)<0.03?"（真题情境复现：W*=2.00 L）":""):(gap<0?"提前 "+Math.abs(gap).toFixed(2)+" L 停下（磁场比临界 W* 宽，场内减速段更长）":"已冲出边界（磁场比临界 W* 窄，没刹住）"));
+  } else if(P3.phase==="out" && back>=W){
+    P3.running=false; P3.done=true;
+    $("d3").innerHTML="线框已完全离开磁场：出射速度 v="+P3.v.toFixed(3)+" m/s（入射 v₀="+P3.v0.toFixed(2)+"）。";
+  }
+}
+$("s3mode").addEventListener("change",e=>{P3.mode=e.target.value;resetP3();});
+$("s3b").addEventListener("input",e=>{P3.B=+e.target.value;$("v3b").textContent=P3.B.toFixed(2)+" T";resetP3();});
+$("s3w").addEventListener("input",e=>{P3.W=+e.target.value;$("v3w").textContent=P3.W.toFixed(2)+" L";resetP3();});
+$("b3run").addEventListener("click",()=>{ if(P3.done) resetP3(); P3.running=true; });
+$("b3reset").addEventListener("click",resetP3);
+$("b3exam").addEventListener("click",()=>{
+  if(P3.mode==="A"){ P3.B=1; P3.W=1; $("s3b").value=1; $("s3w").value=1; P3.v0=P3.B*P3.B*P3.L*P3.L*P3.L/(P3.m*P3.R0); $("v3b").textContent="1.00 T"; $("v3w").textContent="1.00 L"; }
+  else { P3.B=1; $("s3b").value=1; P3.W=2.0; $("s3w").value=2.0; $("v3w").textContent="2.00 L"; }
+  $("v3b").textContent=P3.B.toFixed(2)+" T"; resetP3(); P3.running=true;
+});
+function drawP3(){
+  const {g,w,h}=fit($("c3")); g.clearRect(0,0,w,h);
+  grid(g,w,h);
+  const gy=h*0.62, x0=150, WL=P3.W*P3.L*SCALE3;
+  // rails (mode B)
+  if(P3.mode==="B"){ g.strokeStyle="#94a3b8"; g.lineWidth=3;
+    g.beginPath(); g.moveTo(0,gy-60); g.lineTo(w,gy-60); g.moveTo(0,gy+60); g.lineTo(w,gy+60); g.stroke(); g.lineWidth=1;
+    g.fillStyle="#64748b"; g.fillText("导轨（短路上下边）+ 外接 R₁", 8, gy-70); }
+  // field region
+  g.fillStyle="rgba(8,145,178,.12)"; g.fillRect(x0, gy-110, WL, 220);
+  g.strokeStyle="#0891b2"; g.setLineDash([5,4]); g.strokeRect(x0, gy-110, WL, 220); g.setLineDash([]);
+  g.fillStyle="#0891b2"; g.fillText("磁场 B（宽 "+P3.W.toFixed(2)+" L）", x0+6, gy-118);
+  for(let yy=gy-100; yy<gy+110; yy+=22){ g.fillText("×", x0+18, yy); g.fillText("×", x0+18+Math.min(WL-20,150), yy); }
+  // frame
+  const fx=x0+P3.x*SCALE3, L=P3.L*SCALE3;
+  g.strokeStyle="#0066ff"; g.lineWidth=3; g.strokeRect(fx, gy-L/2, L, L); g.lineWidth=1;
+  g.fillStyle="#0066ff"; g.fillText("v="+P3.v.toFixed(2)+" m/s", fx, gy-L/2-8);
+  // stop marker / boundary
+  g.fillStyle="#c2410c"; g.fillText("右边界", x0+WL-20, gy+130);
+  // v-t graph
+  const gx=w-230, gy2=20;
+  g.fillStyle="#fff"; g.fillRect(gx,gy2,205,90); g.strokeStyle="#dbe2ec"; g.strokeRect(gx,gy2,205,90);
+  g.fillStyle="#64748b"; g.fillText("v–t", gx+4, gy2+12);
+  const tmax=Math.max(1,P3.t), vmax=Math.max(P3.v0,1);
+  g.strokeStyle="#0066ff"; g.beginPath();
+  P3.vt.forEach((r,i)=>{ const X=gx+205*r[0]/tmax, Y=gy2+90-(90*Math.min(r[1],vmax)/vmax); i?g.lineTo(X,Y):g.moveTo(X,Y); });
+  g.stroke();
+  g.fillStyle="#1f2733"; g.font="13px -apple-system"; g.fillText("x(前端)="+(P3.x+P3.L).toFixed(2)+" L / 右边界 "+P3.W.toFixed(2)+" L", 16, h-14);
+}
+
+/* ───────── master loop ───────── */
+let last=performance.now();
+function loop(now){
+  const dt=Math.min(0.05,(now-last)/1000); last=now;
+  const active=document.querySelector(".problem.on").id;
+  if(active==="p2"&&P2.running){
+    let rem=dt*0.9;
+    while(rem>0&&!P2.done){ const h=Math.min(rem,0.0002); stepP2(h); rem-=h; P2.t+=h; }
+    drawP2();
+  }
+  if(active==="p3"&&P3.running){
+    let rem=dt*1.6;
+    while(rem>0&&!P3.done){ const h=Math.min(rem,0.001); stepP3(h); rem-=h; P3.t+=h; }
+    drawP3();
+  }
+  requestAnimationFrame(loop);
+}
+
+/* ═══════════ 苏格拉底引导引擎 ═══════════ */
+const TUTOR = {
+  p1:{
+    steps:[
+      {q:"重物被「缓慢」竖直下降——这个「缓慢」在物理上意味着什么？",
+       opts:[{t:"加速度可忽略，每一时刻都可当作平衡态来分析",ok:1,fb:"对。缓变过程 = 准静态，任意瞬间三力平衡。"},
+             {t:"速度严格等于零",ok:0,fb:"缓慢下降仍有速度，只是加速度≈0——差别就在这里。"},
+             {t:"动能不断减小",ok:0,fb:"匀速缓降动能不变。抓住「加速度≈0」才是要点。"}]},
+      {q:"对结点 O 做受力分析，O 受哪几个力？",
+       opts:[{t:"绳 P 拉力、绳 Q 拉力、悬挂重物对它的拉力（大小=重力）",ok:1,fb:"正确，三力汇交于 O。"},
+             {t:"两个拉力和一个支持力",ok:0,fb:"结点悬空，没有支持力。"},
+             {t:"只有两个绳的拉力",ok:0,fb:"漏了重物通过吊索传下来的力（大小为 G）。"}]},
+      {q:"沿哪两个方向正交分解最顺手？",
+       opts:[{t:"水平 + 竖直",ok:1,fb:"对。两个未知量各占一个方程：水平解耦、竖直配重。"},
+             {t:"沿 P 绳方向 + 垂直 P 绳方向",ok:0,fb:"可行但 F_Q 会同时出现在两个方程里，不如正交干净。"},
+             {t:"任意方向结果都一样，不用挑",ok:0,fb:"数学上等价，但「好方向」让两个未知量逐个解耦——这是解题速度的关键。"}]},
+      {q:"水平方向的平衡方程应该是（α、β 为与竖直方向夹角）——",
+       opts:[{t:"F_P·sinα = F_Q·sinβ",ok:1,fb:"正是官方解析第一条：0.6F_P = 0.8F_Q。"},
+             {t:"F_P·cosα = F_Q·cosβ",ok:0,fb:"那是把竖直分量拿去配平了——cos 对应竖直（与竖直夹角），别混。"},
+             {t:"F_P·tanα = F_Q·tanβ",ok:0,fb:"tan 是组合量，平衡方程要用正交分量 sin/cos。"}]},
+      {q:"联立解出 F_Q，表达式的分母是——",
+       opts:[{t:"sin(β−α)",ok:1,fb:"对：F_Q = G·sinα/sin(β−α)。分母变小拉力就爆炸——这就是交互图里你看到的现象。"},
+             {t:"sin(α+β)",ok:0,fb:"符号错了：两力水平分量相消、竖直分量同侧相减，差角才对。"},
+             {t:"cos(β−α)",ok:0,fb:"三角函数选错：从消元过程出来的是 sin(β−α)。"}]}
+    ],
+    numeric:[
+      {label:"F_Q（用官方近似口径，N）",ans:900,tol:8,unit:"N",sol:"F_Q = 420×0.6/0.28 ≈ 900 N"},
+      {label:"F_P（N）",ans:1200,tol:12,unit:"N",sol:"F_P = F_Q×sinβ/sinα = 900×0.8/0.6 = 1200 N"},
+      {label:"缓降 10 m 两绳拉力做功代数和 W（J，带符号）",ans:-4200,tol:30,unit:"J",sol:"W = −G·h = −420×10 = −4200 J（拉力向上、位移向下，做负功）"}
+    ],
+    variant:()=>{
+      const G=[360,420,480,540][Math.floor(Math.random()*4)];
+      return {text:"变式：G="+G+" N，α、β 不变（37°/53°），求 F_Q（官方近似口径，N）。",
+              ans:G*0.6/0.28, tol:G*0.6/0.28*0.03+1, unit:"N",
+              sol:"F_Q = G·sinα/sin(β−α) ≈ "+G+"×0.6/0.28 ≈ "+(G*0.6/0.28).toFixed(0)+" N"};
+    }
+  },
+  p2:{
+    steps:[
+      {q:"物块滑上静止薄板后，薄板为什么会向前加速？",
+       opts:[{t:"物块给薄板一个向前的滑动摩擦力",ok:1,fb:"对。物块相对板向前滑 → 板受向前摩擦 μmg。"},
+             {t:"薄板有重力沿运动方向的分量",ok:0,fb:"平台水平，重力没有水平分量。"},
+             {t:"平台给薄板的摩擦力",ok:0,fb:"平台光滑且方向也不对——它若粗糙只会是阻力。"}]},
+      {q:"平台光滑。系统（物块+薄板）水平方向动量守恒吗？",
+       opts:[{t:"守恒——摩擦力是内力，水平不受外力",ok:1,fb:"正确：mv₀ = mv₁ + mv₂，这是本题第一根支柱。"},
+             {t:"不守恒，因为有摩擦",ok:0,fb:"内力不改变系统总动量——区分内力/外力是这里的全部要点。"},
+             {t:"只在前半段守恒",ok:0,fb:"守恒与否看外力，不看阶段。"}]},
+      {q:"相对滑动期间，物块和薄板的加速度各是多少？",
+       opts:[{t:"物块 μg（减速）、薄板 μg（加速）——因为质量相等",ok:1,fb:"正确：摩擦 μmg 对物块是阻力、对板是动力，除以各自质量 m 后大小都是 μg=3 m/s²。"},
+             {t:"物块 μg、薄板 2μg",ok:0,fb:"板只受一个 μmg，别乘二。"},
+             {t:"物块 2μg、薄板 μg",ok:0,fb:"物块也只受一个摩擦力。"}]},
+      {q:"「物块恰从薄板右端飞出」用位移怎么表达？",
+       opts:[{t:"x物 − x板 = l（相对位移等于板长）",ok:1,fb:"对。所以物块对地位移 = l + Δl —— 这就是解析里 v₀²−v₁²=2μg(l+Δl) 的来历。"},
+             {t:"x物 = l",ok:0,fb:"漏了板自己也在走——对地位移比板长多出 Δl。"},
+             {t:"x板 = l",ok:0,fb:"板只走了 Δl = l/6。"}]},
+      {q:"飞出之后呢？",
+       opts:[{t:"物块平抛（水平 v₁），薄板以 v₂ 匀速（平台光滑）",ok:1,fb:"正确。接下来平抛时间由高度决定，板在这段时间里匀速滑行——「中心恰好到 O」就是用这个时间反推 h。"},
+             {t:"两者都继续匀速",ok:0,fb:"物块离开支撑面后还有重力——是平抛不是匀速直线。"},
+             {t:"物块自由落体",ok:0,fb:"它带着水平速度 v₁ 离开，是平抛。"}]}
+    ],
+    numeric:[
+      {label:"v₀（m/s）",ans:4,tol:0.05,unit:"m/s",sol:"v₂²=2μgΔl=1→v₂=1；动量守恒 v₀=v₁+1；动能定理 v₀²−v₁²=2μg(l+Δl)=7 → v₀=4"},
+      {label:"t₁（s）",ans:1/3,tol:0.005,unit:"s",sol:"薄板匀加速 v₂=μgt₁ → t₁=1/(3)=1/3 s"},
+      {label:"平台高度 h（m）",ans:5/9,tol:0.01,unit:"m",sol:"平抛时间 t₂=(l/2−Δl)/v₂=(1/2−1/6)/1=1/3 s → h=½gt₂²=5/9≈0.556 m"}
+    ],
+    variant:()=>{
+      const mu=[0.2,0.25,0.4][Math.floor(Math.random()*3)], v0=[5,6][Math.floor(Math.random()*2)];
+      // 模拟真值（这组参数必飞出：v0 ≥ 2√(μgl) 恒成立）
+      let vb=v0,vp=0,xb=0,xp=0,dt=1e-3;
+      for(let i=0;i<20000;i++){ vb-=mu*10*dt; vp+=mu*10*dt; xb+=vb*dt; xp+=vp*dt;
+        if(xb-xp>=1)break; }
+      return {text:"变式：μ="+mu+"、v₀="+v0+" m/s（l=1.0 m 不变）。求薄板的最终速度 v₂（m/s）。",
+              ans:vp, tol:0.03, unit:"m/s",
+              sol:"物块飞出 → 动量守恒 v₀=v₁+v₂ 且 v₀²−v₁²=2μg(l+Δl)、v₂²=2μgΔl → v₂="+vp.toFixed(2)+" m/s（对板用动能定理 μgΔl=v₂²/2）"};
+    }
+  },
+  p3:{
+    steps:[
+      {q:"第 2 问里，线框的上、下两条边有电流吗？",
+       opts:[{t:"没有——它们被导轨短路了",ok:1,fb:"对：导轨沿上下边方向、电阻不计，上下边被短接。切割的只有左/右边。"},
+             {t:"有，四条边都有",ok:0,fb:"被短路的支路两端等电势，没有电流流过。"},
+             {t:"取决于 B 的方向",ok:0,fb:"B 的方向影响电动势极性，不影响短路事实。"}]},
+      {q:"安培力 F=B²L²v/R 随速度变化——求速度变化量，最好用什么工具？",
+       opts:[{t:"动量定理：对微元时间累积 F·dt",ok:1,fb:"对。ΣB²L²v/R·dt = B²L²·x/R（v dt = dx）——速度问题变成位移问题，这是本题的钥匙。"},
+             {t:"牛顿第二定律硬积分",ok:0,fb:"思路对但绕远——动量定理一步把 v·dt 换成 dx。"},
+             {t:"能量守恒",ok:0,fb:"热量未知，能量方程多一个未知量。"}]},
+      {q:"第 1 问（无导轨，R=4R₀）：从进入到完全穿出（磁场宽 L），安培力冲量共多少？",
+       opts:[{t:"进、出各一段：2×B²L³/(4R₀)",ok:1,fb:"对。两段位移各 L：I=2B²L³/(4R₀)=B²L³/(2R₀)=mv₀−mv₀/2 → v₀=B²L³/(mR₀)。"},
+             {t:"只有进入一段 B²L³/(4R₀)",ok:0,fb:"穿出时是左边切割，同样受安培力——别漏。"},
+             {t:"零，因为出磁场时没有电流",ok:0,fb:"穿出过程中左边在切割，有电流。"}]},
+      {q:"第 2 问进入磁场段的回路电阻为什么是 5/3·R₀？",
+       opts:[{t:"右边 R₀ 串联「左边 R₀ 与外接 R₁ 的并联」——R₁=2R₀ 时得 5/3·R₀",ok:1,fb:"正确：R=R₀+R₀R₁/(R₀+R₁)。"},
+             {t:"四条边串联再并联 R₁",ok:0,fb:"上下边被短路，不参与。"},
+             {t:"就是 R₁ 本身",ok:0,fb:"切割边自己的 R₀ 也串在回路里。"}]},
+      {q:"完全进入后，为什么电阻变成 5/2·R₀、电动势等效不变？",
+       opts:[{t:"左右两边变成两个并联电源（内阻 R₀/2），外路只剩 R₁",ok:1,fb:"对：R=R₀/2+R₁=5/2·R₀，安培力仍 ∝v，线框在磁场内继续减速直到停在右边界。"},
+             {t:"电动势加倍所以力加倍",ok:0,fb:"两电源并联，端电压不变、总电流由外路决定。"},
+             {t:"不再受安培力",ok:0,fb:"仍有电流流过 R₁，仍受安培力——否则它不会停。"}]}
+    ],
+    numeric:[
+      {label:"第 1 问 v₀ = ?（B=L=m=R₀=1 时数值，m/s）",ans:1,tol:0.02,unit:"m/s",sol:"v₀=B²L³/(mR₀)，代入全 1 → 1 m/s；一般式 v₀=B²L³/(mR₀)"},
+      {label:"第 2 问 R₁ = ?（用 R₀ 的倍数）",ans:2,tol:0.01,unit:"×R₀",sol:"R₁=2R₀（由进入段 5/3·R₀ 的并联结构反解）"},
+      {label:"R₁ 上总热量 Q = ?（B=1 全 1，J）",ans:3/25,tol:0.005,unit:"J",sol:"Q=3B⁴L⁶/(25mR₀²)=3/25=0.12 J（进入段 2/25 + 场内段 1/25）"}
+    ],
+    variant:()=>{
+      const B=[1.5,2,2.5][Math.floor(Math.random()*3)];
+      return {text:"变式：第 1 问条件（无导轨、磁场宽 L），B="+B+" T（其余全 1）。求出射速度 v_exit（m/s）。",
+              ans:B*B/2, tol:0.06, unit:"m/s",
+              sol:"v₀=B²L³/(mR₀)="+B*B+"，两段冲量共 B²L³/(2R₀)=mv₀/2 → v_exit=v₀/2="+(B*B/2).toFixed(2)+" m/s"};
+    }
+  }
+};
+const tutorState={};
+function mountTutor(pid){
+  const box=$( "t"+pid.slice(1));
+  tutorState[pid]={step:0, doneSteps:0};
+  renderTutor(pid);
+}
+function renderTutor(pid){
+  const box=$("t"+pid.slice(1)), T=TUTOR[pid], st=tutorState[pid];
+  box.innerHTML="";
+  if(st.step < T.steps.length){
+    const s=T.steps[st.step];
+    const m=document.createElement("div"); m.className="msg tutor";
+    m.innerHTML='<div class="bubble"><b>导师：</b>'+s.q+'</div>';
+    box.appendChild(m);
+    const ol=document.createElement("div"); ol.className="opts";
+    s.opts.forEach((o,i)=>{
+      const b=document.createElement("button"); b.textContent=String.fromCharCode(65+i)+"．"+o.t;
+      b.addEventListener("click",()=>{
+        stats.total++;
+        if(o.ok){ stats.first++; b.classList.add("ok");
+          Array.from(ol.children).forEach(x=>x.disabled=true);
+          const fb=document.createElement("div"); fb.className="fb"; fb.textContent="✓ "+o.fb; box.appendChild(fb);
+          st.step++; setTimeout(()=>renderTutor(pid),350);
+        } else { b.classList.add("no"); b.disabled=true;
+          const fb=document.createElement("div"); fb.className="fb"; fb.textContent="× "+o.fb+" 再想想，或换个选项。"; box.appendChild(fb); }
+        updStat();
+      });
+      ol.appendChild(b);
+    });
+    box.appendChild(ol);
+  } else if(!st.numericDone){
+    const m=document.createElement("div"); m.className="msg tutor";
+    m.innerHTML='<div class="bubble">思路通了，现在把<b>真题数值</b>算出来（可回看左边的交互图/仿真校验）：</div>';
+    box.appendChild(m);
+    T.numeric.forEach((n,i)=>{
+      const row=document.createElement("div"); row.className="numeric";
+      row.innerHTML='<span>'+(i+1)+'. '+n.label+'</span><input type="number" step="any" id="num_'+pid+'_'+i+'"><span class="unit">'+n.unit+'</span>';
+      const btn=document.createElement("button"); btn.textContent="校验";
+      btn.addEventListener("click",()=>{
+        const val=parseFloat($("num_"+pid+"_"+i).value);
+        let out=row.querySelector(".sol");
+        if(!out){ out=document.createElement("div"); out.className="sol"; row.appendChild(out); }
+        out.textContent = (val!==null&&Math.abs(val-n.ans)<=n.tol ? "✓ 正确｜" : "× 再算算｜")+n.sol;
+      });
+      row.appendChild(btn); box.appendChild(row);
+    });
+    const vb=document.createElement("div"); vb.className="variant"; vb.id="var_"+pid;
+    const btn=document.createElement("button"); btn.className="gen"; btn.textContent="生成变式题（同技能·随机数）";
+    btn.addEventListener("click",()=>{
+      stats.total++;
+      const v=T.variant();
+      vb.innerHTML="<h4>"+v.text+'<span class="chip">Targeted practice</span></h4>';
+      const row=document.createElement("div"); row.className="numeric";
+      row.innerHTML='<input type="number" step="any" id="vans_'+pid+'"><span class="unit">'+v.unit+'</span>';
+      const c=document.createElement("button"); c.textContent="判分";
+      c.addEventListener("click",()=>{
+        const val=parseFloat($("vans_"+pid).value);
+        let out=row.querySelector(".sol");
+        if(!out){ out=document.createElement("div"); out.className="sol"; row.appendChild(out); }
+        const okv = val!==null && Math.abs(val-v.ans)<=v.tol;
+        out.textContent=(okv?"✓ 通过｜":"× 未通过｜")+v.sol;
+        if(okv) stats.first++; updStat();
+      });
+      row.appendChild(c); vb.appendChild(row); box.appendChild(vb);
+      btn.disabled=true;
+    });
+    box.appendChild(btn);
+  }
+}
+
+/* ───────── init ───────── */
+["p1","p2","p3"].forEach(mountTutor);
+resizeAll(); resetP2(); resetP3(); drawP1(); updStat();
+window.addEventListener("resize",()=>{resizeAll();drawP1();drawP2();drawP3();});
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
