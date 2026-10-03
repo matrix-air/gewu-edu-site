@@ -108,4 +108,12 @@ python3 ~/Documents/Aurora/tools/aesthetic_lint.py index.html
 
 ## 发布
 
-公网镜像走 `matrix-air/*` GitHub Pages（SSH push，Pages 源 = main 根目录），与 `matrix-air/ai-edu-strategy` 同一配方。发布后以 HTTP 200 为准。
+公网镜像：**https://matrix-air.github.io/gewu-edu-site/** （仓库 `matrix-air/gewu-edu-site`，Pages 源 = main 根，含 `.nojekyll`），与 `matrix-air/ai-edu-strategy` 同一配方。
+
+上线核对（实测，2026-10-03）：`/` 200 · 46,215 B；`assets/{xueersi,iflytek,nobook,khanmigo}.jpg` 全 200；`demo-khanmigo-replica.html` 200；对公网 URL 重跑 `render-shots.js` 结果与本地一致（errors `[]`、物理数值对上、小屏横向溢出 0）。
+
+更新下线流程：本地改完 → 重跑本 README 的「复验」两步 → 只在 `_publish/` 暂存目录同步 `index.html` / `demo-*.html` / `README.md` / `assets/*.jpg` / `shots/*.png`（**png 原图不上公网**）→ commit → `git push` → 等 Pages 重建后以 HTTP 200 为准。
+
+## 本目录的 `shots/`
+
+`full-page.png` / `hero-demo.png` / `mobile.png` 是**运行实录**（无头渲染的真实截图），随仓库分发给公网，作交付证据；原始未压缩分屏片在同名 `-p01..p10` 序列里，按需重跑 `render-shots.js` 生成，不入库。
