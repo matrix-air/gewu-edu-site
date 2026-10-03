@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>格物 · 高中数理化知识树（29 簇 · 65 章 · 257 节 · 可折叠）</title>
+<title>初高中数理化 · 知识树（一棵树 · 初中+高中凝练版）</title>
 <style>
   :root{--bg:#131313;--panel:#1c1c1c;--line:#2c4a6e;--txt:#e6e6e6;--dim:#8f8f8f;
         --m:#ff7ad9;--p:#6fb6ff;--c:#b29aff;--warm:#ffb020;}
@@ -38,7 +38,7 @@
   .cluster .q{color:var(--dim);font-weight:400;font-size:11.5px;margin-left:8px}
   .cluster .cnt{color:var(--warm);font-size:11px;margin-left:8px;font-weight:600}
   .cluster.ex>.chip{border-color:var(--warm);color:var(--warm)}
-  .cluster .chip{display:inline-block;border:1.5px solid var(--line);border-radius:14px;padding:2px 12px;background:var(--panel)}
+  .cluster .chip{display:inline-block;border:1.5px solid var(--line);border-radius:20px;padding:2px 12px;background:var(--panel)}
   li.ex .cluster .chip{border-color:var(--warm)}
   .chap{font-size:12.5px;color:#dcdcdc}
   .chap .star{color:var(--warm);font-size:11px;margin-left:6px}
@@ -52,19 +52,172 @@
 </head>
 <body>
 
-<h1>格物 · 高中数理化知识树<span class="v">一棵树 · 3 科 · 29 簇 · 65 章 · 257 节 · 2026 口径</span></h1>
+<h1>格物 · 初高中数理化知识树<span class="v">一棵树 · 初中+高中 6 科 · 46 簇 · 127 章 · 377 节/课题 · 2026 口径</span></h1>
 <div style="margin:-6px 0 10px;font-size:12px"><a href="index.html" style="color:#6fb6ff;text-decoration:none">← 返回「格物」产品站</a></div>
 <div class="bar">
   <div class="meta">干＝科，枝＝簇（思维单元，分簇尺：有独立认知引擎才单立），条＝章（带高考权重★），叶＝教材节（人教 2019 全部 257 个真实节，与 教材内容/ 层逐节 diff 归零）｜ 点击 ▸ 折叠/展开</div>
-  <button onclick="setAll(true)">⛶ 展开全部 257 叶</button>
+  <button onclick="setAll(true)">⛶ 展开全部叶子</button>
   <button onclick="lv('c-cluster',true);lv('c-chap',false)">展开到章</button>
   <button onclick="lv('c-cluster',true);lv('c-chap',false);lv('c-cluster',false);document.querySelectorAll('.limb').forEach(d=>d.open=true)">收起到簇</button>
 </div>
 
 <div class="tree">
 <ul>
-  <li><span class="root">高中数理化知识树<span class="cnt">2026 口径 · 人教 2019 · 三道机器门把关</span></span>
+  <li><span class="root">初高中数理化知识树<span class="cnt">初中(人教2022课标/2024版) + 高中(人教2019) · 三道机器门 + 初中节级diff把关</span></span>
   <ul>
+
+  <!-- ═══════ 初中数学 ═══════ -->
+  <li><details class="limb" open><summary><span class="subj math">初中数学</span><small>6 簇 · 29 章 ｜ 一套语言 + 方程函数 + 几何变换 + 统计概率（人教 2012 课标版；2024 新教材七年级起逐年更替，章主题不变）</small></summary>
+    <ul>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">数与式</span><span class="cnt">6章</span></span></summary>
+      <ul>
+      <li class="leaf">第1章 有理数——正负数·数轴·相反数·绝对值·乘方·科学记数法</li>
+      <li class="leaf">第2章 整式的加减——同类项·合并·去括号 → 高中函数概念簇地基</li>
+      <li class="leaf">第6章 实数——平方根·立方根·无理数·实数与数轴一一对应</li>
+      <li class="leaf">第14章 整式的乘法与因式分解——幂运算·平方差·完全平方·提公因式</li>
+      <li class="leaf">第15章 分式——性质·乘除加减·分式方程（验根）</li>
+      <li class="leaf">第16章 二次根式——双重非负性·乘除加减·最简根式</li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">方程与不等式</span><span class="cnt">4章</span></span></summary>
+      <ul>
+      <li class="leaf">第3章 一元一次方程——移项·去括号去分母·配套/工程/利润应用</li>
+      <li class="leaf">第8章 二元一次方程组——代入·加减消元·三元拓展</li>
+      <li class="leaf">第9章 不等式与不等式组——性质3乘负变号·解集数轴</li>
+      <li class="leaf">第21章 一元二次方程——配方/公式/因式分解·判别式Δ·韦达（选学）→ 高中解析几何簇</li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">函数</span><span class="cnt">3章</span></span></summary>
+      <ul>
+      <li class="leaf">第19章 一次函数——图象性质·待定系数法·与方程不等式互看</li>
+      <li class="leaf">第22章 二次函数——三阶演化·平移·最值 → 高中抛物线</li>
+      <li class="leaf">第26章 反比例函数——k 几何意义·图象性质</li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">图形与几何</span><span class="cnt">8章</span></span></summary>
+      <ul>
+      <li class="leaf">第4章 几何图形初步——直线射线线段·角·余角补角</li>
+      <li class="leaf">第5章 相交线与平行线——三线八角·平行判定与性质</li>
+      <li class="leaf">第11章 三角形——三边关系·内外角和·多边形</li>
+      <li class="leaf">第12章 全等三角形——SSS/SAS/ASA/AAS/HL·角平分线</li>
+      <li class="leaf">第17章 勾股定理——及逆定理 → 高中余弦定理特例</li>
+      <li class="leaf">第18章 平行四边形——矩形菱形正方形·中位线</li>
+      <li class="leaf">第24章 圆——垂径定理·圆周角·切线·弧长扇形</li>
+      <li class="leaf">第28章 锐角三角函数——sin/cos/tan·解直角三角形 → 高中三角簇</li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">图形与变换</span><span class="cnt">5章</span></span></summary>
+      <ul>
+      <li class="leaf">第7章 平面直角坐标系——有序数对·坐标与平移 → 高中解析几何簇</li>
+      <li class="leaf">第13章 轴对称——垂直平分线·等腰等边·最短路径</li>
+      <li class="leaf">第23章 旋转——旋转三要素·中心对称</li>
+      <li class="leaf">第27章 相似——相似三角形判定性质·位似</li>
+      <li class="leaf">第29章 投影与视图——平行/中心投影·三视图</li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">统计与概率</span><span class="cnt">3章</span></span></summary>
+      <ul>
+      <li class="leaf">第10章 数据的收集、整理与描述——抽样·直方图</li>
+      <li class="leaf">第20章 数据的分析——加权平均·中位数众数·方差</li>
+      <li class="leaf">第25章 概率初步——P(A)=m/n·列表树状图·频率估概率</li>
+      </ul>
+    </details></li>
+    </ul>
+  </details></li>
+
+  <!-- ═══════ 初中物理 ═══════ -->
+  <li><details class="limb" open><summary><span class="subj phys">初中物理</span><small>6 簇 · 22 章 · 85 叶 ｜ 2024 审定版（八上1-6 · 八下7-12 · 九全13-22）</small></summary>
+    <ul>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">运动与力</span><span class="cnt">6章·22叶</span></span></summary>
+      <ul>
+      <li><details class="c-chap"><summary><span class="chap">八上·第一章 机械运动<span class="n">4节</span></span></summary><ul><li class="leaf">1.1 长度和时间的测量</li><li class="leaf">1.2 运动的描述</li><li class="leaf">1.3 运动的快慢</li><li class="leaf">1.4 测量平均速度</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">八上·第六章 质量与密度<span class="n">4节</span></span></summary><ul><li class="leaf">6.1 质量</li><li class="leaf">6.2 密度</li><li class="leaf">6.3 测量物质的密度</li><li class="leaf">6.4 密度与社会生活</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">八下·第七章 力<span class="n">3节</span></span></summary><ul><li class="leaf">7.1 力</li><li class="leaf">7.2 弹力</li><li class="leaf">7.3 重力</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">八下·第八章 运动和力<span class="n">3节</span></span></summary><ul><li class="leaf">8.1 牛顿第一定律</li><li class="leaf">8.2 二力平衡</li><li class="leaf">8.3 摩擦力</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">八下·第十一章 功和机械能<span class="n">4节</span></span></summary><ul><li class="leaf">11.1 功</li><li class="leaf">11.2 功率</li><li class="leaf">11.3 动能和势能</li><li class="leaf">11.4 机械能及其转化</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">八下·第十二章 简单机械<span class="n">3节</span></span></summary><ul><li class="leaf">12.1 杠杆</li><li class="leaf">12.2 滑轮</li><li class="leaf">12.3 机械效率</li></ul></details></li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">压强与浮力</span><span class="cnt">2章·7叶</span></span></summary>
+      <ul>
+      <li><details class="c-chap"><summary><span class="chap">八下·第九章 压强<span class="n">4节</span></span></summary><ul><li class="leaf">9.1 压强</li><li class="leaf">9.2 液体的压强</li><li class="leaf">9.3 大气压强</li><li class="leaf">9.4 流体压强与流速的关系</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">八下·第十章 浮力<span class="n">3节</span></span></summary><ul><li class="leaf">10.1 浮力</li><li class="leaf">10.2 阿基米德原理</li><li class="leaf">10.3 物体的浮沉条件及应用</li></ul></details></li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">声与光</span><span class="cnt">3章·14叶</span></span></summary>
+      <ul>
+      <li><details class="c-chap"><summary><span class="chap">八上·第二章 声现象<span class="n">4节</span></span></summary><ul><li class="leaf">2.1 声音的产生与传播</li><li class="leaf">2.2 声音的特性</li><li class="leaf">2.3 声的利用</li><li class="leaf">2.4 噪声的危害和控制</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">八上·第四章 光现象<span class="n">5节</span></span></summary><ul><li class="leaf">4.1 光的直线传播</li><li class="leaf">4.2 光的反射</li><li class="leaf">4.3 平面镜成像</li><li class="leaf">4.4 光的折射</li><li class="leaf">4.5 光的色散</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">八上·第五章 透镜及其应用<span class="n">5节</span></span></summary><ul><li class="leaf">5.1 透镜</li><li class="leaf">5.2 生活中的透镜</li><li class="leaf">5.3 凸透镜成像的规律</li><li class="leaf">5.4 眼睛和眼镜</li><li class="leaf">5.5 显微镜和望远镜</li></ul></details></li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">热与内能</span><span class="cnt">3章·10叶</span></span></summary>
+      <ul>
+      <li><details class="c-chap"><summary><span class="chap">八上·第三章 物态变化<span class="n">4节</span></span></summary><ul><li class="leaf">3.1 温度</li><li class="leaf">3.2 熔化和凝固</li><li class="leaf">3.3 汽化和液化</li><li class="leaf">3.4 升华和凝华</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">九全·第十三章 内能<span class="star">2024</span><span class="n">3节</span></span></summary><ul><li class="leaf">13.1 热量 比热容</li><li class="leaf">13.2 分子动理论的初步知识</li><li class="leaf">13.3 内能</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">九全·第十四章 内能的利用<span class="star">2024</span><span class="n">4节</span></span></summary><ul><li class="leaf">14.1 能量的转化与守恒</li><li class="leaf">14.2 热机</li><li class="leaf">14.3 热机的效率</li><li class="leaf">14.4 跨学科实践：简易热机模型</li></ul></details></li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">电与磁</span><span class="cnt">6章·27叶</span></span></summary>
+      <ul>
+      <li><details class="c-chap"><summary><span class="chap">九全·第十五章 电流和电路<span class="star">2024</span><span class="n">5节</span></span></summary><ul><li class="leaf">15.1 两种电荷</li><li class="leaf">15.2 电流和电路</li><li class="leaf">15.3 串联电路和并联电路</li><li class="leaf">15.4 电流的测量</li><li class="leaf">15.5 串并联电路中电流的规律</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">九全·第十六章 电压 电阻<span class="star">2024</span><span class="n">5节</span></span></summary><ul><li class="leaf">16.1 电压</li><li class="leaf">16.2 串并联电路中电压的规律</li><li class="leaf">16.3 电阻</li><li class="leaf">16.4 变阻器</li><li class="leaf">16.5 跨学科实践：调光台灯</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">九全·第十七章 欧姆定律<span class="star">2024</span><span class="n">4节</span></span></summary><ul><li class="leaf">17.1 电流与电压、电阻的关系</li><li class="leaf">17.2 欧姆定律</li><li class="leaf">17.3 电阻的测量</li><li class="leaf">17.4 欧姆定律在串并联电路中的应用</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">九全·第十八章 电功率<span class="star">2024</span><span class="n">4节</span></span></summary><ul><li class="leaf">18.1 电能 电功</li><li class="leaf">18.2 电功率</li><li class="leaf">18.3 跨学科实践：家庭节约用电</li><li class="leaf">18.4 焦耳定律</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">九全·第十九章 生活用电<span class="star">2024</span><span class="n">3节</span></span></summary><ul><li class="leaf">19.1 安全用电</li><li class="leaf">19.2 家庭电路的基本组成</li><li class="leaf">19.3 跨学科实践：家庭电路设计</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">九全·第二十章 电与磁<span class="star">2024</span><span class="n">6节</span></span></summary><ul><li class="leaf">20.1 磁现象 磁场</li><li class="leaf">20.2 电生磁</li><li class="leaf">20.3 电磁铁 电磁继电器</li><li class="leaf">20.4 电动机</li><li class="leaf">20.5 跨学科实践：简易直流电动机</li><li class="leaf">20.6 磁生电</li></ul></details></li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">能源与信息</span><span class="cnt">2章·6叶</span></span></summary>
+      <ul>
+      <li><details class="c-chap"><summary><span class="chap">九全·第二十一章 电磁波及其应用<span class="star">2024</span><span class="n">3节</span></span></summary><ul><li class="leaf">21.1 电磁波的海洋</li><li class="leaf">21.2 广播、电视和移动通信</li><li class="leaf">21.3 卫星通信和光纤通信</li></ul></details></li>
+      <li><details class="c-chap"><summary><span class="chap">九全·第二十二章 能源与可持续发展<span class="star">2024</span><span class="n">3节</span></span></summary><ul><li class="leaf">22.1 能源利用的现状和挑战</li><li class="leaf">22.2 新能源的发展</li><li class="leaf">22.3 跨学科实践：节能设计</li></ul></details></li>
+      </ul>
+    </details></li>
+    </ul>
+  </details></li>
+
+  <!-- ═══════ 初中化学 ═══════ -->
+  <li><details class="limb" open><summary><span class="subj chem">初中化学</span><small>5 簇 · 11 单元 · 35 课题 ｜ 人教 2024 新课标版（九上 7 单元 + 九下 4 单元）</small></summary>
+    <ul>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">走进化学</span><span class="cnt">1单元·2课题</span></span></summary>
+      <ul>
+      <li class="leaf">一·课题1 物质的变化和性质</li>
+      <li class="leaf">一·课题2 化学实验与科学探究</li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">物质构成的奥秘</span><span class="cnt">2单元·6课题</span></span></summary>
+      <ul>
+      <li class="leaf">三·课题1 分子和原子</li>
+      <li class="leaf">三·课题2 原子结构</li>
+      <li class="leaf">三·课题3 元素</li>
+      <li class="leaf">四·课题1 水资源及其利用</li>
+      <li class="leaf">四·课题2 水的组成</li>
+      <li class="leaf">四·课题3 物质组成的表示（化学式·化合价）</li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">身边的化学物质</span><span class="cnt">4单元·12课题</span></span></summary>
+      <ul>
+      <li class="leaf">二·我们周围的空气｜氧气｜制取氧气</li>
+      <li class="leaf">六·碳单质的多样性｜碳的氧化物｜二氧化碳的实验室制取</li>
+      <li class="leaf">八·金属材料｜金属的化学性质（活动性顺序）｜金属资源利用与保护</li>
+      <li class="leaf">十·酸和碱｜酸碱中和反应｜盐 化肥（复分解反应）</li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">化学反应与溶液</span><span class="cnt">2单元·5课题</span></span></summary>
+      <ul>
+      <li class="leaf">五·质量守恒定律｜化学方程式</li>
+      <li class="leaf">九·溶液的形成｜溶解度｜溶质的质量分数</li>
+      </ul>
+    </details></li>
+    <li><details class="c-cluster"><summary><span class="cluster"><span class="chip">化学与社会</span><span class="cnt">2单元·4课题</span></span></summary>
+      <ul>
+      <li class="leaf">七·燃料的燃烧｜化石能源的合理利用</li>
+      <li class="leaf">十一·化学与人体健康｜有机合成材料</li>
+      </ul>
+    </details></li>
+    </ul>
+  </details></li>
 
   <!-- ═══════ 数学 ═══════ -->
   <li><details class="limb" open><summary><span class="subj math">数学</span><small>11 簇 · 18 章 · 74 叶 ｜ 一套语言 + 一条函数主线 + 两个几何工具 + 一套随机思维</small></summary>
@@ -404,8 +557,8 @@
 </div>
 
 <div class="foot">
-  本页为静态知识资产（数据即教材目录本身）。叶＝人教 2019 教材目录全部 257 个真实节（数 72/物 125/化 60，另含统计案例等选学节），与 <b>教材内容/</b> 层逐节 diff 归零；枝级分簇尺＝有独立认知引擎才单立（用户定调）；星＝高考权重（三科大纲 §2）<br>
-  <span class="gates">三道门全绿：coverage_check.py（大纲 65 章）· cluster_check.py（簇分配+节级）· content_check.py（教材内容层）</span><br>
+  高中叶＝人教 2019 全 257 节（与 教材内容/ 层 diff 归零）；初中枝＝人教版（数学 29 章 2012 课标版 / 物理 22 章 85 节 2024 审定版 / 化学 11 单元 35 课题 2024 版），全量节级在页；分簇尺＝有独立认知引擎才单立；星＝高考权重<br>
+  <span class="gates">门禁全绿：coverage / cluster / content（高中三道门）+ 初中节级 diff（物 85 叶·化 35 课题·数 29 章在页）</span><br>
   交互提示：点击 ▸ 折叠/展开任意枝；顶部按钮可一键"展开全部 257 叶 / 展开到章 / 收起到簇"｜ 姊妹篇：知识簇地图.html（簇间桥接+连接律）· 场景化×集中化分层.md ｜ 2026-10-03 · Aurora
 </div>
 
